@@ -1,0 +1,1115 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saki Fujiwara Portfolio website</title>
+<meta name="description" content="Saki Fujiwara のポートフォリオ。事業企画・PM と、生成AIを業務の基盤に組み込む仕組みづくり。">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#FFFFFF; --tint:#F8F4F5; --ink:#221C1E; --ink2:#4D4547; --muted:#8E8587;
+  --line:#ECE5E7; --line2:#D9CFD2;
+  --acc:#D63469; --acc-lt:#FA5786; --acc-dk:#BD1155; --acc-soft:#FCEFF3;
+  --deep:#FBF1F4; --deep-2:#F6E6EB; --deep-ink:#221C1E; --deep-muted:#7F7477; --deep-line:rgba(120,60,80,.14);
+  --rb:linear-gradient(100deg,#FF5C8A 0%,#FF9F45 24%,#4ECB8B 48%,#3FA0F0 72%,#9B6BF0 100%);
+  --stitch:color-mix(in srgb,var(--acc) 55%,transparent);
+  --jp:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  --en:"Jost","Avenir Next",Avenir,"Century Gothic",sans-serif;
+  --pad:clamp(20px,4vw,44px); --navh:64px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--navh) + 12px)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--jp);font-size:15px;line-height:1.95;
+  letter-spacing:.02em;font-feature-settings:"palt" 1;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:var(--pad)}
+.rb-t{background-image:var(--rb);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.eyebrow{font-family:var(--en);font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin:0;color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+
+/* ── nav ── */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:var(--navh)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex-shrink:0}
+.brand .bn{font-family:var(--en);font-weight:400;font-size:15px;letter-spacing:.16em}
+.brand .bj{font-size:11px;color:var(--muted);letter-spacing:.12em}
+.tabs{margin-left:auto;display:flex;align-items:center;gap:2px}
+.tabs a{font-family:var(--en);font-size:13px;letter-spacing:.08em;color:var(--muted);text-decoration:none;
+  padding:6px 11px;position:relative;transition:color .25s}
+.tabs a::after{content:"";position:absolute;left:11px;right:11px;bottom:0;border-top:1.5px dashed var(--acc);
+  transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.tabs a:hover,.tabs a.on{color:var(--ink)}
+.tabs a.on::after{transform:scaleX(1)}
+.tabs .cta-s{margin-left:10px;color:#fff;background:var(--acc);border-radius:999px;padding:7px 16px}
+.tabs .cta-s::after{display:none}
+.tabs .cta-s:hover{color:#fff;background:var(--acc-dk)}
+.menu-btn{display:none;margin-left:auto;font:500 12.5px/1 var(--en);letter-spacing:.18em;color:var(--ink);
+  background:none;border:1px solid var(--line2);border-radius:999px;padding:10px 16px;cursor:pointer}
+.mm{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--deep-ink);
+  padding:calc(env(safe-area-inset-top,0px) + 18px) var(--pad) calc(env(safe-area-inset-bottom,0px) + 28px);
+  display:flex;flex-direction:column}
+.mm-top{display:flex;justify-content:space-between;align-items:center;height:44px}
+.mm-top .bn{font-family:var(--en);letter-spacing:.16em}
+.mm-close{background:none;border:1px solid var(--deep-line);color:var(--deep-ink);border-radius:999px;
+  font:500 12.5px/1 var(--en);letter-spacing:.18em;padding:10px 16px;cursor:pointer}
+.mm nav{display:flex;flex-direction:column;margin-top:28px}
+.mm nav a{display:flex;align-items:baseline;gap:14px;text-decoration:none;padding:13px 0;border-bottom:1px solid var(--deep-line)}
+.mm nav a .en{font-family:var(--en);font-weight:300;font-size:32px;letter-spacing:.04em}
+.mm nav a .jp{font-size:12px;color:var(--deep-muted)}
+.mm nav a .no{font-family:var(--en);font-size:11px;color:var(--acc);width:22px}
+@media(max-width:900px){.tabs{display:none}.menu-btn{display:block}}
+@media(max-width:560px){.brand .bj{display:none}:root{--navh:58px}}
+
+/* ── blob ── */
+.blobwrap{flex-shrink:0;line-height:0}
+.blob{display:block;overflow:visible}
+.blob path.body{fill:var(--acc)}
+.brand .blob path.body{fill:url(#navrb)}
+.blob circle.eye{fill:#fff}
+.blob path.mouth{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pass{0%{opacity:0;transform:translateX(-4px)}35%,70%{opacity:.85}100%{opacity:0;transform:translateX(6px)}}
+
+/* ── hero ── */
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);gap:clamp(36px,5vw,72px);align-items:center;
+  padding-block:clamp(48px,6.5vw,96px) clamp(40px,5vw,72px)}
+.kicker{font-family:var(--en);font-size:12px;letter-spacing:.26em;margin:0 0 22px}
+h1{font-weight:900;font-size:clamp(30px,4.3vw,58px);line-height:1.38;letter-spacing:.01em;margin:0 0 28px}
+h1 .l{display:block}
+h1 .l:nth-child(-n+2){font-size:.6em;font-weight:700;line-height:1.6;letter-spacing:.04em;color:var(--ink2)}
+h1 .l:nth-child(2){margin-bottom:.12em}
+h1 em{font-style:normal;white-space:nowrap}
+.hlead{font-size:15px;line-height:2.05;color:var(--ink2);max-width:36em;margin:0}
+.hlead b{font-weight:700;color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:500 13.5px/1 var(--en);letter-spacing:.1em;
+  text-decoration:none;padding:15px 24px;border-radius:999px;border:1px solid var(--line2);color:var(--ink);
+  background:none;cursor:pointer;transition:background .25s,border-color .25s,color .25s,transform .25s}
+.btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+@media(max-width:600px){.btn.hide-m{display:none}.btn{padding:14px 20px}}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.pri:hover{background:var(--acc-dk);border-color:var(--acc-dk);color:#fff}
+.btn .ar{transition:transform .25s}
+.btn:hover .ar{transform:translateX(3px)}
+.hero-side{display:flex;flex-direction:column;align-items:center;gap:22px}
+.duo{display:flex;align-items:center;gap:10px}
+.duo .me{animation:bob 4.6s ease-in-out infinite}
+.duo .me .body{fill:url(#rain);animation:hue 11s linear infinite}
+.duo .pal{animation:bob 4.6s ease-in-out infinite .9s}
+.duo .pal svg{animation:spin 32s linear infinite}
+.link{width:26px;height:44px;overflow:visible}
+.link circle{fill:var(--acc);opacity:0;animation:pass 2.6s ease-in-out infinite}
+.link circle:nth-child(2){animation-delay:.32s}.link circle:nth-child(3){animation-delay:.64s}
+.idc{width:100%;max-width:420px;border:1px solid var(--line);border-radius:6px;padding:22px 24px 24px;background:var(--bg);position:relative}
+.idc::before{content:"";position:absolute;inset:6px;border:1px dashed var(--line2);border-radius:3px;pointer-events:none}
+.idc .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px}
+.idc-blob{display:none;margin:-8px -4px -14px 0}
+.idc-blob .body{fill:url(#rain);animation:hue 11s linear infinite}
+.idc .nm{font-family:var(--en);font-size:21px;font-weight:400;letter-spacing:.06em}
+.idc .meta{font-size:12px;color:var(--muted);margin:0 0 12px}
+.idc .tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;padding:0;list-style:none}
+.idc .tags li{font-size:11px;padding:2px 9px;border-radius:999px;background:var(--acc-soft);color:var(--acc-dk)}
+.idc p{margin:0;font-size:12.5px;line-height:1.85;color:var(--ink2)}
+.idc p b{color:var(--ink)}
+.hero .kicker,.hero h1 .l,.hero .hlead,.hero .cta,.hero-side{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.hero h1 .l:nth-child(2){animation-delay:.08s}.hero h1 .l:nth-child(3){animation-delay:.16s}
+.hero h1 .l:nth-child(4){animation-delay:.24s}.hero .hlead{animation-delay:.34s}.hero .cta{animation-delay:.42s}
+.hero-side{animation-delay:.2s}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);padding-block:36px 48px;gap:34px}
+  .hero-side{flex-direction:row;align-items:flex-start;gap:16px}
+  .duo{flex-direction:column;gap:4px;display:none}
+  .idc{max-width:none}
+  .idc-blob{display:block}
+}
+
+/* ── ticker ── */
+.ticker{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding-block:14px}
+.ticker .tr{display:inline-flex;gap:0;animation:tick 42s linear infinite}
+.ticker span{font-family:var(--en);font-size:13px;letter-spacing:.14em;color:var(--muted);padding-inline:22px;position:relative}
+.ticker span:lang(ja){font-family:var(--jp);letter-spacing:.08em}
+.ticker span::after{content:"";position:absolute;right:-3px;top:50%;width:5px;height:5px;border-radius:50%;background:var(--acc);opacity:.6;transform:translateY(-50%)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ── section base ── */
+.sec{padding-block:clamp(72px,9vw,128px)}
+.sec.alt{background:var(--tint)}
+.sh{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:22px clamp(32px,5vw,72px);align-items:end;
+  margin-bottom:clamp(36px,4.5vw,60px)}
+.idx{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:0 0 8px}
+.idx .n{font-family:var(--en);font-size:13px;color:var(--acc);letter-spacing:.1em}
+.idx .en{font-family:var(--en);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+.idx .jp{font-size:12px;color:var(--muted);letter-spacing:.1em}
+.idx::after{content:"";flex:1;border-top:1.5px dashed var(--stitch);margin-left:6px}
+.st{font-size:clamp(24px,2.8vw,36px);font-weight:700;line-height:1.52;letter-spacing:.01em;margin:0;text-wrap:pretty}
+.st em{font-style:normal;color:var(--acc)}
+.lead{font-size:15px;line-height:2;color:var(--ink2);margin:0;max-width:34em}
+.lead b{color:var(--ink);font-weight:700}
+@media(max-width:900px){.sh{grid-template-columns:minmax(0,1fr);gap:18px}}
+@media(max-width:600px){.st{font-size:22px;line-height:1.6}}
+.st,h1,.ph-st,.proof-hd h2,.str h3,.wk h3,.hh,.kot h3{word-break:auto-phrase}
+
+/* ── proof（数字） ── */
+.proof{background:var(--deep);color:var(--deep-ink);position:relative;overflow:hidden}
+.proof::before{content:"";position:absolute;width:720px;height:720px;left:-240px;top:-360px;border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 12%,transparent),transparent);pointer-events:none}
+.proof .wrap{position:relative;padding-block:clamp(64px,8vw,112px)}
+.proof-hd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:18px 56px;align-items:end;margin-bottom:clamp(36px,4vw,56px)}
+.proof-hd .eyebrow{color:var(--acc)}
+.proof-hd h2{margin:0;font-size:clamp(20px,2.3vw,30px);font-weight:700;line-height:1.6;text-wrap:balance}
+.proof-hd h2 em{font-style:normal;color:var(--acc);font-family:var(--en);font-weight:400;font-size:1.25em}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,3vw,48px)}
+.stat{display:block;text-decoration:none;border-top:1px solid var(--deep-line);padding:22px 0 26px}
+.stat .v{font-family:var(--en);font-weight:200;font-size:clamp(46px,5.4vw,76px);line-height:1;letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;transition:color .3s}
+.stat .v i{font-style:normal;font-family:var(--jp);font-weight:500;font-size:14px;letter-spacing:.04em;margin-left:8px;color:var(--deep-muted)}
+.stat .k{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:13px;color:var(--deep-muted)}
+.stat .k::after{content:"→";font-family:var(--en);opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s;color:var(--acc)}
+.stat:hover .v{color:var(--acc)}
+.stat:hover .k::after{opacity:1;transform:none}
+.kot{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(28px,4vw,64px);align-items:center;
+  margin-top:clamp(48px,6vw,80px);padding-top:clamp(40px,5vw,64px);border-top:1.5px dashed var(--deep-line)}
+.kot .eyebrow{color:var(--acc);margin-bottom:14px}
+.kot h3{margin:0 0 6px;font-size:clamp(24px,2.6vw,34px);font-weight:700;line-height:1.4}
+.kot h3 span{font-family:var(--en);font-weight:300;font-size:.62em;color:var(--deep-muted);margin-left:8px;letter-spacing:.06em}
+.kot p{margin:0;color:var(--deep-muted);font-size:14px}
+.kot-act{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.kot .btn{color:var(--deep-ink);border-color:var(--deep-line)}
+.kot .btn:hover{border-color:var(--deep-ink)}
+.kot .btn[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.kot .btn svg{width:17px;height:17px}
+.kot-vid{margin:0;border-radius:14px;overflow:hidden;background:#FBF7EF;aspect-ratio:16/9;max-width:100%;
+  box-shadow:0 24px 60px rgba(120,40,70,.16);border:1px solid var(--deep-line)}
+.kot-vid video{display:block;width:100%;height:100%;object-fit:cover}
+@media(max-width:900px){
+  .proof-hd{grid-template-columns:minmax(0,1fr)}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kot{grid-template-columns:minmax(0,1fr)}
+  .kot-vid{order:-1}
+}
+@media(max-width:420px){.stat .v{font-size:40px}.stat .v i{font-size:12px;margin-left:5px}.stat .k{font-size:12px}}
+
+/* ── Who ── */
+.grid-cells{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.grid-cells > *{background:var(--bg)}
+.sec.alt .grid-cells > *{background:var(--tint)}
+.str{grid-template-columns:repeat(3,minmax(0,1fr))}
+.str article{padding:26px 26px 28px;display:flex;flex-direction:column;gap:10px;transition:background .3s}
+.str .n{font-family:var(--en);font-size:12px;color:var(--acc);letter-spacing:.14em}
+.str h3{margin:0;font-size:16px;line-height:1.7;font-weight:700;text-wrap:balance}
+.str p{margin:0;font-size:13.5px;line-height:1.9;color:var(--ink2)}
+.str article:hover{background:var(--acc-soft)}
+.profile{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);margin-top:clamp(40px,5vw,64px)}
+.profile .eyebrow{margin-bottom:12px}
+.profile .ptxt{margin:0;font-size:14px;line-height:2;color:var(--ink2)}
+.profile .ptxt b{color:var(--ink)}
+.cred{margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.cred div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cred dt{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.1em;padding-top:2px}
+.cred dd{margin:0;font-size:13px;line-height:1.85;color:var(--ink2)}
+@media(max-width:900px){.str{grid-template-columns:repeat(2,minmax(0,1fr))}.profile{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){
+  .str{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;background:none;border:0;
+    margin-inline:calc(var(--pad) * -1);padding:2px var(--pad) 6px;scroll-padding-inline:var(--pad);scrollbar-width:none}
+  .str::-webkit-scrollbar{display:none}
+  .str article{flex:0 0 72vw;border:1px solid var(--line);border-radius:6px;padding:20px 20px 22px;scroll-snap-align:start}
+  .str-hint{display:block!important}
+}
+
+/* ── Work ── */
+.works{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1100px){.works{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.wk{padding:26px 26px 30px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:calc(var(--navh) + 40px);transition:background .3s}
+.wk .tg{font-family:var(--en);font-size:11px;letter-spacing:.18em;color:var(--acc)}
+.wk h3{margin:0;font-size:16px;line-height:1.75;font-weight:700;text-wrap:pretty}
+.wk p{margin:0;font-size:13px;line-height:1.9;color:var(--ink2)}
+.wk:hover{background:var(--tint)}
+.wk.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,40%{background:var(--acc-soft)}100%{background:var(--bg)}}
+.swipe-hint{display:none;font-family:var(--en);font-size:11.5px;letter-spacing:.14em;color:var(--muted);margin:12px 0 0}
+.reg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px);margin-top:clamp(40px,5vw,64px);scroll-margin-top:calc(var(--navh) + 30px)}
+.rg{border-top:1px solid var(--line2)}
+.rg summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:4px 12px;padding:16px 0 16px;cursor:pointer}
+.rg .fn small{display:block;font-family:var(--jp);font-size:12px;letter-spacing:.04em;color:var(--muted);margin-top:4px}
+.rg .pv{grid-column:1/-1;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rg[open] .pv{display:none}
+.rg summary:hover .ct{color:var(--acc-dk)}
+.rg summary::-webkit-details-marker{display:none}
+.rg .fn{font-family:var(--en);font-size:13px;letter-spacing:.22em}
+.rg .ct{font-family:var(--en);font-weight:200;font-size:40px;line-height:1;color:var(--acc)}
+.rg .ct::after{content:"+";font-weight:300;font-size:18px;margin-left:12px;color:var(--muted);display:inline-block;transition:transform .3s}
+.rg[open] .ct::after{transform:rotate(45deg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0 0 18px;list-style:none}
+.chips li{font-size:12px;line-height:1.6;padding:5px 11px;border:1px solid var(--line2);border-radius:3px;color:var(--ink2)}
+@media(max-width:900px){
+  .works{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;background:none;border:0;
+    margin-inline:calc(var(--pad) * -1);padding:2px var(--pad) 6px;scroll-padding-inline:var(--pad);scrollbar-width:none}
+  .works::-webkit-scrollbar{display:none}
+  .works > .wk{flex:0 0 min(78vw,360px);border:1px solid var(--line);border-radius:6px;scroll-snap-align:start}
+  .swipe-hint{display:block}
+  .reg{grid-template-columns:minmax(0,1fr);gap:0}
+  .rg{border-top:1px solid var(--line2)}
+  .rg:last-child{border-bottom:1px solid var(--line2)}
+  .rg .ct{font-size:30px}
+  .rg[open] .chips{padding-bottom:18px}
+  .rg summary{padding:14px 0}
+}
+
+.stack{margin-top:clamp(40px,5vw,64px);border-top:1px solid var(--line2);padding-top:16px}
+.stack-hd{display:flex;align-items:baseline;gap:12px;margin:0 0 6px}
+.stack-hd .fn{font-family:var(--en);font-size:13px;letter-spacing:.22em}
+.stack-hd .jp{font-size:12px;color:var(--muted)}
+.stack dl{margin:0}
+.stack dl div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px 20px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+.stack dt{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.08em}
+.stack dd{margin:0}
+.stack .chips{padding:0}
+.stack .row-note{margin:8px 0 0;font-size:12px;color:var(--muted)}
+@media(max-width:600px){.stack dl div{grid-template-columns:minmax(0,1fr);gap:8px}}
+/* ── Philosophy（Mind / How / Why） ── */
+.ph{display:grid;grid-template-columns:minmax(0,4.2fr) minmax(0,7fr);gap:24px clamp(32px,5vw,72px);
+  padding-block:clamp(36px,4.5vw,56px);border-top:1px solid var(--line2);scroll-margin-top:calc(var(--navh) + 8px)}
+.ph:last-child{padding-bottom:0}
+.ph-hd{align-self:start}
+@media(min-width:901px){.ph-hd{position:sticky;top:calc(var(--navh) + 28px)}}
+.ph-k{display:flex;align-items:baseline;gap:12px;margin:0 0 14px}
+.ph-k .en{font-family:var(--en);font-weight:300;font-size:clamp(34px,3.6vw,48px);line-height:1;letter-spacing:.02em;color:var(--acc)}
+.ph-k .jp{font-size:12px;color:var(--muted);letter-spacing:.1em}
+.ph-st{margin:0;font-size:clamp(20px,2vw,26px);font-weight:700;line-height:1.6}
+.ph-st em{font-style:normal;color:var(--acc)}
+.ph-bd{display:grid;gap:26px;min-width:0}
+.ph-bd .fig-scroll{margin-top:4px}
+.sub{display:grid;gap:0;border-top:1px solid var(--line)}
+.sub > div{padding:16px 0;border-bottom:1px solid var(--line)}
+.sub h4{margin:0 0 4px;font-size:15px;line-height:1.7;font-weight:700}
+.sub p{margin:0;font-size:13.5px;line-height:1.9;color:var(--ink2)}
+.sub p b{color:var(--ink)}
+.rules{margin:0;padding:0;list-style:none;counter-reset:r;border-top:1px solid var(--line)}
+.rules li{counter-increment:r;display:grid;grid-template-columns:34px minmax(0,1fr);padding:16px 0;border-bottom:1px solid var(--line)}
+.rules li::before{content:counter(r,decimal-leading-zero);font-family:var(--en);font-size:12px;color:var(--acc);padding-top:3px}
+.rules b{display:block;font-size:15px;line-height:1.7}
+.rules span{grid-column:2;font-size:13.5px;line-height:1.9;color:var(--ink2)}
+.fig{margin:0}
+.fig svg{display:block;width:100%;height:auto}
+.fig-scroll{overflow-x:auto;scrollbar-width:thin}
+.chain{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-block:1px solid var(--line)}
+.ch{padding:16px 14px 18px;position:relative}
+.ch + .ch{border-left:1px solid var(--line)}
+.ch .s{margin:0;font-family:var(--en);font-size:12px;color:var(--acc);letter-spacing:.14em}
+.ch .h{margin:6px 0 4px;font-size:15px;font-weight:700;line-height:1.6}
+.ch .p{margin:0;font-size:12.5px;line-height:1.85;color:var(--ink2)}
+.ch.last{background:var(--acc-soft)}
+.ch.last .h{color:var(--acc)}
+@media(max-width:900px){
+  .ph{grid-template-columns:minmax(0,1fr)}
+  .fig-scroll{margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad)}
+  .fig-scroll svg{min-width:620px}
+  .fig-scroll{scrollbar-width:none}.fig-scroll::-webkit-scrollbar{display:none}
+  .fig-hint{display:block;text-align:center}
+  .chain{grid-template-columns:minmax(0,1fr);border:0;border-left:1.5px dashed var(--stitch);margin-left:6px}
+  .ch{padding:10px 0 12px 22px}
+  .ch + .ch{border-left:0}
+  .ch::before{content:"";position:absolute;left:-5px;top:17px;width:8px;height:8px;border-radius:50%;background:var(--acc)}
+  .ch.last{background:none}
+}
+
+/* ── Next ── */
+.nx{grid-template-columns:repeat(4,minmax(0,1fr))}
+.nx > div{padding:26px 24px 28px}
+.nx h4{margin:0 0 8px;font-size:15.5px;line-height:1.65;font-weight:700}
+.nx p{margin:0;font-size:13px;line-height:1.9;color:var(--ink2)}
+.nx p b{color:var(--ink)}
+.next-fig{max-width:820px;margin:clamp(24px,3vw,40px) auto 0}
+@media(max-width:1000px){.nx{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.nx{grid-template-columns:minmax(0,1fr)}.nx > div{padding:20px}}
+
+/* ── Contact ── */
+.contact{background:var(--deep);color:var(--deep-ink);position:relative;overflow:hidden;text-align:center}
+.contact::before{content:"";position:absolute;left:50%;top:-180px;width:760px;height:560px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 14%,transparent),transparent);pointer-events:none}
+.contact .wrap{position:relative;padding-block:clamp(72px,9vw,120px) clamp(56px,7vw,88px);display:flex;flex-direction:column;align-items:center}
+.contact .eyebrow{margin-bottom:26px}
+.metamon{display:flex;align-items:flex-start;justify-content:center;gap:4px;margin-bottom:28px}
+.metamon .blob .body{fill:url(#rain);animation:hue 11s linear infinite}
+.metamon .blobwrap{animation:bob 4.6s ease-in-out infinite}
+.mt-bubble{margin:8px 0 0 -10px;padding:11px 18px 12px;background:var(--bg);color:var(--ink);text-align:left;
+  border-radius:18px 18px 18px 4px;font-size:14px;font-weight:500;letter-spacing:.06em;line-height:1.5;white-space:nowrap;
+  box-shadow:0 1px 0 rgba(120,40,70,.05),0 12px 30px rgba(120,40,70,.12);animation:bob 4.6s ease-in-out infinite .35s}
+.mail{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 18px}
+.mail span{font-family:var(--en);font-weight:300;font-size:clamp(26px,4.4vw,52px);line-height:1.15;letter-spacing:.01em;
+  color:var(--ink);user-select:all;word-break:break-all}
+.copy{font:500 11.5px/1 var(--en);letter-spacing:.16em;color:#fff;background:var(--acc);border:0;border-radius:999px;
+  padding:10px 16px;cursor:pointer;transition:background .25s}
+.copy:hover{background:var(--acc-dk)}
+.cinfo{margin:clamp(40px,5vw,60px) 0 0;width:100%;max-width:880px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--deep-line)}
+.cinfo div{padding:20px 16px 4px}
+.cinfo div + div{border-left:1px solid var(--deep-line)}
+.cinfo dt{font-family:var(--en);font-size:11px;letter-spacing:.22em;color:var(--acc);text-transform:uppercase;margin-bottom:8px}
+.cinfo dd{margin:0;font-size:13.5px;line-height:1.8;color:var(--ink2)}
+.cinfo dd.en{font-family:var(--en);font-size:15px;letter-spacing:.06em}
+footer.foot{background:var(--deep);color:var(--deep-muted)}
+footer.foot .wrap{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:18px 22px;
+  border-top:1px solid var(--deep-line);font-family:var(--en);font-size:11.5px;letter-spacing:.12em}
+@media(max-width:700px){
+  .cinfo{grid-template-columns:minmax(0,1fr)}
+  .cinfo div{padding:14px 0 12px}
+  .cinfo div + div{border-left:0;border-top:1px solid var(--deep-line)}
+  .metamon .blob{width:104px;height:104px}
+  footer.foot .wrap{justify-content:center;text-align:center}
+}
+/* ── 経歴スライダー／モーダル（既存） ── */
+.hc.plain.wh .hph{background:var(--bg);box-shadow:inset 0 0 0 1px var(--line2)}
+.hc.plain.wh .hph em{color:var(--acc);opacity:1}
+.hc.plain.wh .go{background:var(--acc-soft);color:var(--acc)}
+/* ── 経歴：横スライダー（旧・年表＋SELECTED WORK を統合） ── */
+.hsl{margin-top:clamp(28px,3vw,40px)}
+.hcs{display:flex;gap:clamp(16px,2vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;
+  margin-inline:calc(var(--pad) * -1);padding:4px var(--pad) 10px;scroll-padding-inline:var(--pad);
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.hcs::-webkit-scrollbar{display:none}
+.hcs:focus-visible{outline:1.5px solid var(--acc);outline-offset:-2px}
+.hc{flex:0 0 clamp(260px,27vw,340px);scroll-snap-align:start;display:flex;flex-direction:column;
+  padding:0;border:0;background:none;color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+.hph{position:relative;display:block;width:100%;aspect-ratio:7/8;overflow:hidden;border-radius:4px;
+  background:#2B2426;margin-bottom:18px}
+.hph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.hc:hover .hph img{transform:scale(1.04)}
+.hc.plain .hph{background:radial-gradient(130% 110% at 100% 0%,color-mix(in srgb,var(--acc) 36%,#2B2426) 0%,#2B2426 66%);
+  display:flex;align-items:flex-end;padding:24px}
+.hph em{font-family:var(--en);font-style:normal;font-size:clamp(28px,2.6vw,36px);line-height:1.1;letter-spacing:.01em;color:#fff;opacity:.92}
+.hc.lt .hph{background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.hc.lt .hph img{object-fit:contain;padding:0 12%}
+.hc.lt:hover .hph img{transform:none}
+.hy{font-family:var(--en);font-size:12.5px;letter-spacing:.06em;color:var(--acc);margin-bottom:6px}
+.hh{font-weight:700;font-size:clamp(17px,1.5vw,19.5px);line-height:1.6;letter-spacing:.03em;margin-bottom:10px}
+.hmeta{font-size:12px;letter-spacing:.04em;color:var(--ink2);line-height:1.75}
+.hmeta i{display:inline-block;width:1px;height:1em;background:currentColor;margin:0 9px;vertical-align:-2px;opacity:.6}
+.hc .go{position:absolute;right:12px;top:12px;width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.88);color:var(--ink);display:grid;place-items:center;font-size:12.5px;line-height:1;
+  transition:background .3s,color .3s}
+.hc:hover .go{background:var(--acc);color:#fff}
+.hc:focus-visible{outline:1.5px solid var(--acc);outline-offset:4px}
+.hcnav{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px}
+.hcc{font-family:var(--en);font-size:11.5px;letter-spacing:.08em;color:var(--ink3,var(--ink2));margin-right:auto;opacity:.8}
+.hcb{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:none;color:var(--ink);
+  font-size:15px;cursor:pointer;transition:border-color .3s,background .3s,color .3s,opacity .3s}
+.hcb:hover:not(:disabled){border-color:var(--acc);background:var(--acc);color:#fff}
+.hcb:disabled{opacity:.3;cursor:default}
+@media(max-width:760px){
+  .hcs{gap:14px;padding-inline:14vw;scroll-padding-inline:0}
+  .hc{flex-basis:72vw;scroll-snap-align:center}
+  .hcnav{justify-content:center}.hcc{margin-right:0}.hcb{display:none}
+}
+
+.shot{display:flex;flex-direction:column;gap:0;margin:2px 0 22px;
+  border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#fff}
+.shot img{display:block;width:100%;height:auto;margin:0}
+.ms h4 .ct{font-weight:400;font-size:10.5px;letter-spacing:.08em;color:var(--muted);float:right}
+.mbig{display:flex;flex-direction:column;gap:7px;margin-top:8px;padding:20px 22px;
+  border:1px solid var(--line2);border-radius:4px;text-decoration:none;color:inherit;
+  background:var(--tint);transition:border-color .3s,background .3s}
+.mbig:hover{border-color:var(--acc);background:var(--acc-soft)}
+.mbig .u{font-family:var(--en);font-size:10.5px;letter-spacing:.08em;color:var(--muted)}
+.mbig .t{font-size:14px;font-weight:700;color:var(--acc)}
+.mbig .t::after{content:" ↗";font-weight:400}
+.mbig .t i{display:block;font-style:normal;font-weight:400;font-size:11.5px;
+  color:var(--ink2);margin-top:5px;line-height:1.8}
+.mbig .t i::after{content:none}
+/* ── 詳細モーダル ── */
+.mdl{width:min(960px,calc(100vw - 28px));max-height:88vh;padding:0;border:0;border-radius:5px;
+  background:var(--bg);color:var(--ink);overflow:visible}
+.mdl::backdrop{background:rgba(32,27,27,.58);backdrop-filter:blur(3px)}
+.mb{max-height:88vh;overflow-y:auto;overscroll-behavior:contain;padding:clamp(28px,4vw,52px)}
+.mx{position:absolute;top:10px;right:10px;z-index:3;width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line2);background:var(--bg);color:var(--ink2);font-size:13px;
+  cursor:pointer;line-height:1;transition:border-color .25s,color .25s}
+.mx:hover{border-color:var(--acc);color:var(--acc)}
+.mk{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:0 0 14px;padding-right:46px}
+.mk .yr{font-family:var(--en);font-size:10.5px;letter-spacing:.18em;color:var(--acc);margin-right:5px}
+.mk .tg{font-size:10.5px;letter-spacing:.04em;color:var(--muted);
+  border:1px solid var(--line2);border-radius:2px;padding:2px 8px}
+.mdl h3{margin:0 0 7px;font-weight:500;font-size:clamp(20px,2.4vw,27px);line-height:1.5;letter-spacing:.01em}
+.mr{margin:0 0 18px;font-size:13.5px;color:var(--acc);font-weight:700}
+.mlead{margin:0 0 26px;font-size:13.5px;line-height:2.05;color:var(--ink2);max-width:62em}
+.ms{border-top:1px solid var(--line);padding-top:15px;margin-bottom:20px}
+.ms h4{margin:0 0 9px;font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+.ms ul{margin:0;padding:0;list-style:none}
+.ms li{position:relative;padding:4px 0 4px 15px;font-size:12.5px;line-height:1.95;color:var(--ink2)}
+.ms li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:1px;background:var(--acc)}
+.mn{margin:0 0 20px;font-size:11.5px;line-height:1.9;color:var(--muted);
+  border-left:2px solid var(--line2);padding-left:12px}
+.ml{display:flex;flex-direction:column;gap:7px;margin-bottom:26px}
+.ml a{font-size:12px;color:var(--acc);text-decoration:none;border-bottom:1px solid var(--line2);
+  padding-bottom:3px;width:fit-content;max-width:100%}
+.ml a:hover{border-color:var(--acc)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:6px}
+.mg.many{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.ms.mp ul.plist{columns:2;column-gap:30px}
+.ms.mp li{padding:3px 0 3px 15px;break-inside:avoid}
+.ms.mp h4{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ms.mp h4 .ct{font-weight:400;font-size:10.5px;letter-spacing:.08em;color:var(--muted)}
+.ms.mp li a{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  color:var(--ink2);text-decoration:none;font-size:12px;
+  border-bottom:1px solid transparent;padding-bottom:2px}
+.ms.mp li a b{font-weight:400}
+.ms.mp li a .sk{flex-shrink:0;font-family:var(--en);font-size:10px;letter-spacing:.06em;color:var(--acc)}
+.ms.mp li a .sk i{font-style:normal;font-family:var(--jp);font-size:9.5px;color:var(--muted);letter-spacing:0}
+.ms.mp li a:hover{color:var(--acc);border-color:var(--line2)}
+.mg img{width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--tint)}
+@media(max-width:620px){.mg{grid-template-columns:1fr}.mg.many{grid-template-columns:1fr 1fr}.mb{padding:26px 20px 34px}.ms.mp ul.plist{columns:1}}
+html:has(dialog[open]){overflow:hidden}
+.hsl{margin-top:0}
+@media(max-width:620px){.mdl{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;border-radius:0}.mb{max-height:100dvh;padding:56px 20px 40px}.mx{top:max(10px,env(safe-area-inset-top,0px));position:fixed}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="rain" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8FB0"/><stop offset=".22" stop-color="#FFBE7C"/><stop offset=".45" stop-color="#7FDCAE"/><stop offset=".68" stop-color="#7DC4F5"/><stop offset=".88" stop-color="#B79AF2"/><stop offset="1" stop-color="#FF8FB0"/></linearGradient></defs></svg>
+<div class="nav"><div class="wrap">
+  <a class="brand" href="#top" aria-label="MIMICRY トップへ">
+    <span class="blobwrap"><svg class="blob" width="26" height="26" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="navrb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF5C8A"/><stop offset=".3" stop-color="#FF9F45"/><stop offset=".58" stop-color="#4ECB8B"/><stop offset=".8" stop-color="#3FA0F0"/><stop offset="1" stop-color="#9B6BF0"/></linearGradient></defs><path class="body" d=""/><circle class="eye" cx="48" cy="58" r="5"/><circle class="eye" cx="74" cy="58" r="5"/><path class="mouth" d="M52 76 q9 7 18 0"/></svg></span>
+    <span class="bn">MIMICRY</span><span class="bj">擬態する人</span>
+  </a>
+  <nav class="tabs" id="tabs" aria-label="セクション">
+    <a href="#proof">Highlight</a><a href="#who">Who</a><a href="#history">History</a><a href="#work">AI Work</a>
+    <a href="#mind">Mind</a><a href="#how">How</a><a href="#why">Why</a><a href="#next">Next</a>
+    <a class="cta-s" href="#contact">Contact</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mm">MENU</button>
+</div></div>
+
+<div class="mm" id="mm" hidden>
+  <div class="mm-top"><span class="bn">MIMICRY</span><button class="mm-close" id="mmClose" type="button">CLOSE</button></div>
+  <nav aria-label="メニュー">
+    <a href="#proof"><span class="no">00</span><span class="en">Highlight</span><span class="jp">Claudeで3ヶ月でつくったもの</span></a>
+    <a href="#who"><span class="no">01</span><span class="en">Who</span><span class="jp">わたしについて</span></a>
+    <a href="#history"><span class="no">02</span><span class="en">History</span><span class="jp">これまでの経歴と仕事</span></a>
+    <a href="#work"><span class="no">03</span><span class="en">AI Work</span><span class="jp">直近で実践したAIワーク</span></a>
+    <a href="#mind"><span class="no">04</span><span class="en">Mind</span><span class="jp">AIとの距離</span></a>
+    <a href="#how"><span class="no">05</span><span class="en">How</span><span class="jp">仕事の進め方</span></a>
+    <a href="#why"><span class="no">06</span><span class="en">Why</span><span class="jp">なぜAIなのか</span></a>
+    <a href="#next"><span class="no">07</span><span class="en">Next</span><span class="jp">これから</span></a>
+    <a href="#contact"><span class="no">—</span><span class="en">Contact</span><span class="jp">連絡先</span></a>
+  </nav>
+</div>
+
+<main id="top">
+
+<header class="wrap hero">
+  <div>
+    <p class="kicker rb-t">AI × DESIGN — PORTFOLIO 2026</p>
+    <h1><span class="l">1の情報から100を</span><span class="l">インプットして、</span><span class="l">AIで<em class="rb-t">仕組みと未来</em>を</span><span class="l">デザインする。</span></h1>
+    <p class="hlead">デザインの質は、見てきた世界の深さで決まる。それはAIにおいても変わらない。私は体験から、再現性のある「型」と「ロジック」を徹底的に導き出す。<b>得た知見を個人の領域に閉じ込めず、重ね合わせることで、個の知恵を「組織の未来を照らす資産」へと変えていく。</b></p>
+    <div class="cta"><a class="btn pri" href="#work">AI Work を見る <span class="ar">→</span></a><a class="btn hide-m" href="#history">History</a><a class="btn" href="#contact">Contact</a></div>
+  </div>
+  <aside class="hero-side">
+    <span class="duo">
+      <span class="blobwrap me"><svg class="blob" width="200" height="200" viewBox="0 0 120 120" role="img" aria-label="かたちを変えつづけるマスコット"><path class="body" d=""/><circle class="eye" cx="48" cy="58" r="6"/><circle class="eye" cx="76" cy="58" r="6"/><path class="mouth" d="M53 78 q9 7 18 0"/></svg></span>
+      <svg class="link" viewBox="0 0 26 44" aria-hidden="true"><circle cx="5" cy="22" r="2.6"/><circle cx="13" cy="22" r="2.6"/><circle cx="21" cy="22" r="2.6"/></svg>
+      <span class="blobwrap pal"><svg class="spark" width="104" height="104" viewBox="0 0 24 24" role="img" aria-label="Claude"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" fill="#D97757" fill-rule="nonzero"/></svg></span>
+    </span>
+    <div class="idc">
+      <div class="top"><span class="eyebrow">Profile</span><span class="blobwrap idc-blob"><svg class="blob" width="46" height="46" viewBox="0 0 120 120" aria-hidden="true"><path class="body" d=""/><circle class="eye" cx="48" cy="58" r="6"/><circle class="eye" cx="76" cy="58" r="6"/><path class="mouth" d="M53 78 q9 7 18 0"/></svg></span></div>
+      <p class="nm" style="font-family:var(--en);font-size:21px;letter-spacing:.06em;color:var(--ink);margin:0 0 2px">Saki Fujiwara</p>
+      <p class="meta">1994年度生まれ ／ 2児の母 ／ 北海道在住</p>
+      <ul class="tags"><li>自称メタモン</li><li>英語OK</li></ul>
+      <p>伝統産業、新規事業、toCプロダクト、保育園留学。領域の異なる事業を横断し、デザインリサーチから提供価値の設計、サービス設計、事業企画・PM・カスタマーサクセスまで。<b>役割の線引きを待たず、発見から構造化、設計、実行、改善までを自分で通します。</b>米・タイ・仏に暮らし、英語での企画・制作・商談まで一人で。非エンジニアのまま、生成AIを業務の基盤に組み込んでいます。</p>
+    </div>
+  </aside>
+</header>
+
+<div class="ticker" aria-hidden="true"><div class="tr"><span lang="ja">伝統産業</span><span lang="ja">新規事業</span><span lang="ja">toCプロダクト</span><span lang="ja">保育園留学</span><span lang="ja">事業企画</span><span lang="en">PM</span><span lang="ja">カスタマーサクセス</span><span lang="ja">生成AI</span><span lang="en">English</span><span lang="ja">伝統産業</span><span lang="ja">新規事業</span><span lang="ja">toCプロダクト</span><span lang="ja">保育園留学</span><span lang="ja">事業企画</span><span lang="en">PM</span><span lang="ja">カスタマーサクセス</span><span lang="ja">生成AI</span><span lang="en">English</span></div></div>
+
+<section class="proof" id="proof" data-sec="proof" aria-labelledby="proof-h"><div class="wrap">
+  <div class="proof-hd">
+    <p class="eyebrow">In the first 3 months</p>
+    <h2 id="proof-h">ここにあるものは、すべてClaudeを使いはじめてからの<em>3</em>ヶ月でつくりました。</h2>
+  </div>
+  <div class="stats">
+    <a class="stat" href="#w-producer"><div class="v">20<i>種類以上</i></div><div class="k">業務特化型のカスタムスキル</div></a>
+    <a class="stat" href="#w-info"><div class="v">15<i>本</i></div><div class="k">チャット起点の自動ルーティン</div></a>
+    <a class="stat" href="#reg"><div class="v">11<i>本</i></div><div class="k">単体で動くツール・Webアプリ</div></a>
+    <a class="stat" href="#w-scoring"><div class="v">30,000<i>件超</i></div><div class="k">自作スコアリングで採点した候補先</div></a>
+    <a class="stat" href="#reg"><div class="v">200<i>h/月</i></div><div class="k">仕組みに置き換えた定型業務</div></a>
+    <a class="stat" href="#reg"><div class="v">6<i>チーム</i></div><div class="k">自作の仕組みが動いている社内チーム</div></a>
+  </div>
+  <div class="kot">
+    <div>
+      <p class="eyebrow">One of them</p>
+      <h3>ことり<span>kotori</span></h3>
+      <p>家族の毎日をひとつにするアプリ</p>
+      <div class="kot-act">
+        <button type="button" class="btn" id="kotSound" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M16 9l5 6M21 9l-5 6"/></svg><span>音を出して見る</span></button>
+        <a class="btn" href="https://sites.google.com/view/kotori-app/top" target="_blank" rel="noopener">別タブで紹介ページを見る <span class="ar">↗</span></a>
+      </div>
+    </div>
+    <figure class="kot-vid"><video id="kotVideo" src="kotori/reel.mp4" poster="kotori/poster.jpg" muted loop playsinline autoplay preload="metadata" aria-label="ことり 紹介ムービー（30秒）"></video></figure>
+  </div>
+</div></section>
+
+<section class="sec" id="who" data-sec="who"><div class="wrap">
+  <div class="sh">
+    <p class="idx"><span class="n">01</span><span class="en">Who</span><span class="jp">わたしについて</span></p>
+    <h2 class="st">一度目で全体を捉え、<br>二度目で<em>その法則を解き明かす。</em></h2>
+    <p class="lead">現場の行動から<b>判断条件と分岐ロジックを抽出する。</b>無意識の慣習を排し、本質的なプロセスのみを型化することで、業務の確実な高速化を実現する。</p>
+  </div>
+  <div class="grid-cells str">
+    <article><span class="n">01</span><h3>「AIに頼らず自分でやったほうがよかった」と言わせない</h3><p>AIが引き起こす細かなミスや漏れを徹底的に防ぐ仕組みを、細かく詰め続ける忍耐力。</p></article>
+    <article><span class="n">02</span><h3>効率化と業務改善が、そもそも好き</h3><p>ゲーム感覚で、仕組みの構築をしていくことが楽しい。</p></article>
+    <article><span class="n">03</span><h3>メタモンのように擬態する人</h3><p>まるでメタモンのように、見て、考えて、覚えることが得意。はじめての領域でも、現場の動きを写しとり、自分の型にして使いこなす。</p></article>
+    <article><span class="n">04</span><h3>リアルなものづくりの現場で鍛えた段取り</h3><p>動く前にどこまで詰めるかが、すべてを決める。</p></article>
+    <article><span class="n">05</span><h3>適材適所で、人に頼れるコミュニケーション力</h3><p>産地の職人、デザイナー、撮影、印刷。各分野のプロと組んで生産管理をしてきた。誰に何を任せれば一番いいものになるか、適正に判断する。</p></article>
+    <article><span class="n">06</span><h3>現場で使われるものを追求する。</h3><p>「整っているのに使われないもの」「使いづらいもの」は作りたくない。</p></article>
+  </div>
+  <p class="swipe-hint str-hint">← スワイプ →　強み 6つ</p>
+  <div class="profile">
+    <div>
+      <p class="eyebrow">Profile</p>
+      <p class="ptxt">伝統産業、新規事業、toCプロダクト、保育園留学。領域の異なる事業に業務委託として入り、商品企画・ブランディング、事業企画、プロジェクトマネジメント、カスタマーサクセスを担当してきました。顧客対応にとどまらず、サービス設計、料金設計、業務フロー構築、社内オペレーション、パートナー調整、オンボーディング、トラブル対応まで、事業運営全体を横断します。<b>既存の役割や業務範囲にとらわれず、課題の発見から構造化、解決策の設計、実行、改善までを自走できることが強みです。</b></p>
+    </div>
+    <dl class="cred">
+      <div><dt>語学</dt><dd>英語：TOEIC 955点／英検準1級。高校在学中にアメリカ・オレゴン州へ1年間交換留学。海外ファミリーとのオンラインミーティング、問い合わせ対応、契約前後の調整まで英語のまま完結。フランス語：日常会話</dd></div>
+      <div><dt>学歴</dt><dd>立命館大学 経営学部 国際経営学科 GGPコース（英語特化）卒業。専門科目を英語で履修</dd></div>
+      <div><dt>留学</dt><dd>アメリカ 1年（高校）／タイ・タマサート大学 政策科学部 半年／フランス・パリ 約10ヶ月（エコール・ルサージュ オートクチュール刺繍 専門課程 修了）</dd></div>
+      <div><dt>稼働</dt><dd>北海道／フルリモート</dd></div>
+    </dl>
+  </div>
+  <div class="stack" id="stack">
+    <p class="stack-hd"><span class="fn">STACK</span><span class="jp">使用ツール</span></p>
+    <dl>
+      <div><dt>AI</dt><dd><ul class="chips"><li>Claude（Claude Team／Claude Code／カスタムスキル）</li><li>Gemini</li><li>NotebookLM</li><li>ChatGPT</li></ul></dd></div>
+      <div><dt>業務基盤</dt><dd><ul class="chips"><li>Notion（Notion AI）</li><li>Slack</li><li>Google Workspace（Drive／スプレッドシート／Apps Script／Sites）</li><li>kintone</li><li>Zendesk</li><li>BigQuery</li><li>Obsidian</li></ul></dd></div>
+      <div><dt>開発・自動化</dt><dd><ul class="chips"><li>GitHub</li><li>Python</li><li>JavaScript</li><li>SQL</li><li>Ruby on Rails</li><li>Playwright（ブラウザ自動化）</li><li>Make</li></ul><p class="row-note">非エンジニアとして、Claude Code と組み合わせて使っています</p></dd></div>
+      <div><dt>デザイン・制作</dt><dd><ul class="chips"><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Adobe Lightroom</li><li>Adobe Premiere Pro（動画編集）</li><li>STUDIO</li></ul></dd></div>
+      <div><dt>撮影</dt><dd><ul class="chips"><li>ポートレート撮影</li><li>物撮り</li></ul></dd></div>
+      <div><dt>EC</dt><dd><ul class="chips"><li>futureshop</li><li>BASE</li></ul></dd></div>
+      <div><dt>使用経験あり</dt><dd><ul class="chips"><li>バクラク</li><li>freee</li><li>マネーフォワード</li><li>GMOサイン</li><li>クラウドサイン</li><li>Dialpad</li><li>LINE for Business</li></ul></dd></div>
+    </dl>
+  </div>
+</div></section>
+
+<section class="sec alt" id="history" data-sec="history"><div class="wrap">
+  <div class="sh">
+    <p class="idx"><span class="n">02</span><span class="en">History</span><span class="jp">これまでの経歴と仕事</span></p>
+    <h2 class="st">後戻りできない工程を、<br><em>頭の中で組み立てきる</em>。</h2>
+    <p class="lead">刺繍、陶器、繊維、カタログ、展示会。約10年、手で触れるものをつくり、売る現場にいた。各分野の職人やデザイナーと組み、工程のどこで何が決まるのかを一つずつ教わった。<b>そこで覚えた段取りが、いまも設計の基準になっている。</b></p>
+  </div>
+  <div class="hsl">
+    <div class="hcs" tabindex="0" aria-label="経歴と仕事（横にスクロール・タップで詳細）">
+      <button class="hc" type="button" data-m="hrg" aria-haspopup="dialog"><span class="hph"><img src="img/hrg-05.jpg" alt="厚沢部町の雪原で過ごす留学中の親子" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2024 — 現在</span><span class="hh">保育園留学の最前線で、貪欲に良いサービスを追求していく</span><span class="hmeta">保育園留学<i></i>株式会社キッチハイク　地域プロデューサー・CS・AI活用推進</span></button>
+      <button class="hc" type="button" data-m="jpe" aria-haspopup="dialog"><span class="hph"><img src="img/jpe-01.jpg" alt="Japan Preschool Exchange" loading="lazy" style="object-position:center 70%"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2024 — 現在</span><span class="hh">海外ファミリー向けの地域開拓から立ち上げ、販売、ご家族対応までまるごと。</span><span class="hmeta">Japan Preschool Exchange<i></i>株式会社キッチハイク</span></button>
+      <button class="hc" type="button" data-m="kurasu" aria-haspopup="dialog"><span class="hph"><img src="img/kur-101.jpg" alt="Kurasu “Kyoto”シリーズのカップとソーサー" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2024 — 2026</span><span class="hh">後戻りできないものづくりの現場での生産管理</span><span class="hmeta">合同会社Kurasu<i></i>ブランド戦略・商品企画・生産管理</span></button>
+      <button class="hc" type="button" data-m="tcs" aria-haspopup="dialog"><span class="hph"><img src="img/tcs-02.jpg" alt="to clinic shibuya の受付" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2024</span><span class="hh">クリニックと制作パートナー間の、ブランディングPMO</span><span class="hmeta">to clinic shibuya<i></i>株式会社bonbon（業務委託）　PM・新規事業立案</span></button>
+      <button class="hc lt" type="button" data-m="imm" aria-haspopup="dialog"><span class="hph"><img src="img/imm-03.png" alt="Immunorock のロゴ（採用された3案目）" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2023</span><span class="hh">神戸大学発ベンチャーのロゴデザイン</span><span class="hmeta">Immunorock<i></i>ロゴ・コンセプト設計</span></button>
+      <button class="hc" type="button" data-m="ayo" aria-haspopup="dialog"><span class="hph"><img src="img/ayo-11.jpg" alt="Ayo®︎1 のイメージ写真" loading="lazy" style="object-position:center 35%"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2023 —</span><span class="hh">幼児向け栄養パウダーのリブランディング</span><span class="hmeta">Ayo®︎1<i></i>ブランディング・パッケージ・LP制作</span></button>
+      <button class="hc" type="button" data-m="ioa" aria-haspopup="dialog"><span class="hph"><img src="img/ioa-01.jpg" alt="cafe hello ioa のファサード" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2020 — 2024</span><span class="hh">ロゴと店舗空間のデザイン</span><span class="hmeta">cafe ioa / hello ioa<i></i>ロゴ・空間デザイン</span></button>
+      <button class="hc" type="button" data-m="fej" aria-haspopup="dialog"><span class="hph"><img src="img/fej-01.jpg" alt="Factory Express Japan のオンラインショップ" loading="lazy" style="object-position:12% 0"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2021 — 2023</span><span class="hh">ディレクションから撮影、販売まで全てを担う。</span><span class="hmeta">Factory Express Japan<i></i>アパレルリスタートファンド　事業継承リブランディング・EC運営</span></button>
+      <button class="hc" type="button" data-m="hnt" aria-haspopup="dialog"><span class="hph"><img src="img/hnt-01.jpg" alt="HAVE A NICE TRIP のカタログ" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2020 — 2023</span><span class="hh">止まったブランドを、もう一度売れる形にする。</span><span class="hmeta">HAVE A NICE TRIP<i></i>アパレルリスタートファンド　販促企画・バイイング</span></button>
+      <button class="hc" type="button" data-m="free" aria-haspopup="dialog"><span class="hph"><img src="img/craft-01.jpg" alt="伝統工芸の織物を使ったパンプス" loading="lazy" style="object-position:center 60%"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2018 —</span><span class="hh">価値を損なわずに、いまの買い手へ翻訳する。</span><span class="hmeta">個人事業<i></i>伝統工芸・地場産業のブランディング支援</span></button>
+      <button class="hc plain wh" type="button" data-m="acc" aria-haspopup="dialog"><span class="hph"><em>Startup<br>Support</em><span class="go" aria-hidden="true">＋</span></span><span class="hy">2017 — 2019</span><span class="hh">医療分野の新規事業の成長フェーズをサポート</span><span class="hmeta">アクセラレーター／ファンド運営会社のサポート</span></button>
+      <button class="hc" type="button" data-m="paris" aria-haspopup="dialog"><span class="hph"><img src="img/emb-01.jpg" alt="オートクチュール刺繍の作品" loading="lazy"><span class="go" aria-hidden="true">＋</span></span><span class="hy">2017 / PARIS</span><span class="hh">プロの仕事を本場で学ぶ。妥協しない心を鍛える。</span><span class="hmeta">エコール・ルサージュ<i></i>オートクチュール刺繍 専門課程</span></button>
+    </div>
+    <div class="hcnav"><span class="hcc">タップで詳細 ／ ← スワイプ →</span><button class="hcb" type="button" data-d="-1" aria-label="前へ">←</button><button class="hcb" type="button" data-d="1" aria-label="次へ">→</button></div>
+  </div>
+</div></section>
+
+<section class="sec" id="work" data-sec="work"><div class="wrap">
+  <div class="sh">
+    <p class="idx"><span class="n">03</span><span class="en">AI Work</span><span class="jp">直近で実践したAIワーク</span></p>
+    <h2 class="st">アイディアからアウトプット、PDCAまで。<em>直近で実践したAIワークたち。</em></h2>
+  </div>
+  <div class="grid-cells works" id="works">
+    <article class="wk" id="w-info"><span class="tg">INFORMATION DESIGN</span><h3>Slackのリアクションをトリガーに、情報をSSOTへ流すパイプラインを設計した。</h3><p>13本のバッチが毎時ワークスペースをクロールし、トリガー絵文字の付いた発言をスキーマ別に振り分けて起票。</p></article>
+    <article class="wk" id="w-ui"><span class="tg">UX DESIGN</span><h3>価格改定オペレーションのUXを、定量分析から設計し直した。</h3><p>詳細編集画面ではなくトリアージ画面が必要だと特定。受け入れ確認0%だった4項目を改善軸に。</p></article>
+    <article class="wk" id="w-producer"><span class="tg">SYSTEM DESIGN</span><h3>常時数十件が同時並行する立ち上げ業務の属人性を、再現性ある仕組み（OS）としてモジュール化した。</h3><p>ソーシング、受入条件、提供価値の定義、プライシング、CX設計までを18種類のスキルに分解。いま6チームに同じ仕組みがインストールされている。</p></article>
+    <article class="wk" id="w-migrate"><span class="tg">MIGRATION</span><h3>システム移行に伴うSSOTデータベースから漏れた2000以上の不揃いな情報を旧データベースから回収し、ロールを分けたマルチエージェント10体で突合した。</h3><p>パース・正規化・差分判定・監査ログで役割を分割。AIに答えさせる前提を、成立させるための工事だった。</p></article>
+    <article class="wk" id="w-bot"><span class="tg">AI BOT</span><h3>Slackで質問すると、マスタ（SSOT）を照会して答える社内QA Botを設計した。</h3><p>園・宿・部屋・プランをIDで結ぶデータモデル、「いつ時点の情報か」を添える回答ルール、読み取り専用と許可リストで守る安全設計を担当（基盤とセキュリティは社内エンジニア）。2026年9月から本番で稼働中。</p></article>
+    <article class="wk" id="w-scoring"><span class="tg">SCORING</span><h3>全国3万件超のリードを、5軸35項目・235点のスコアリングモデルでランク付けし、架電チームにパス。</h3><p>配点ルーブリックをSSOTとして固定。誰が採点しても順位が揺れない。</p></article>
+    <article class="wk" id="w-en"><span class="tg">ENGLISH / LP</span><h3>海外ファミリー向けLPを、企画・コピーライティング・制作・撮影アレンジまで単独で担当した。</h3><p>日本の保育文化と海外家庭の前提の差分を設計対象に。商談から契約前後の調整まで英語で完結。</p></article>
+    <article class="wk" id="w-kb"><span class="tg">QUALITATIVE RESEARCH</span><h3>SSOTから漏れる対話の定性情報をキャッチし、検索可能なナレッジとして集約する仕組みを構築した。</h3><p>抽出・スキーマ設計・移行を担当。前段の整備が、そのまま照会Botの回答品質の上限になる。</p></article>
+  </div>
+  <p class="swipe-hint">← スワイプ →　全8件</p>
+  <div class="reg" id="reg">
+    <details class="rg"><summary><span class="fn">SKILLS<small>業務特化型のカスタムスキル</small></span><span class="ct">18</span><span class="pv">宿泊施設リサーチ・提案リスト生成（国内向け）、宿泊施設リサーチ・提案リスト生成（インバウンド向け） ほか</span></summary><ul class="chips"><li>宿泊施設リサーチ・提案リスト生成（国内向け）</li><li>宿泊施設リサーチ・提案リスト生成（インバウンド向け）</li><li>新規拠点の評価スコアリング（5軸235点モデル）</li><li>地域内 全候補施設の一括スクリーニング</li><li>販売戦略ドキュメントの自動生成（国内向け）</li><li>販売戦略ドキュメントの自動生成（インバウンド向け）</li><li>営業架電スクリプトの自動生成</li><li>掲載写真の自動選定・自動レタッチ</li><li>LPコピー・原稿の自動生成</li><li>訴求コピーの自動生成</li><li>施工図からの間取り図自動作成</li><li>間取り図自動生成（クラウド版）</li><li>記念証書の自動生成（写真連携レイアウト）</li><li>インシデントレポートの自動作成</li><li>施策効果の自動検証</li><li>施策インパクトの可視化</li><li>ユーザーレビューの自動校正</li><li>登録番号からの施設情報逆引き照会</li></ul></details>
+    <details class="rg"><summary><span class="fn">ROUTINES<small>チャット起点の自動ルーティン</small></span><span class="ct">13</span><span class="pv">業務マニュアルの自動更新、ナレッジベースの自動蓄積（インバウンド向け） ほか</span></summary><ul class="chips"><li>業務マニュアルの自動更新</li><li>ナレッジベースの自動蓄積（インバウンド向け）</li><li>ナレッジベースの自動蓄積（国内向け）</li><li>対応要タスクの自動起票（オペレーション部門）</li><li>対応要タスクの自動起票（カスタマーサポート部門）</li><li>課題管理ログの自動起票</li><li>インシデント記録の自動起票</li><li>新規事業立ち上げの進捗自動追跡</li><li>予約変更時の自動バリデーションチェック</li><li>LPコピー・原稿の自動生成</li><li>未対応メンションの自動検知・リマインド</li><li>アンケート回答の自動通知</li><li>チャットリアクション起点のDB自動反映</li></ul></details>
+    <details class="rg"><summary><span class="fn">TOOLS<small>単体で動くツール・Webアプリ</small></span><span class="ct">11</span><span class="pv">新規拠点立ち上げ 進捗管理ダッシュボード、LP原稿オーサリング＆プレビューツール ほか</span></summary><ul class="chips"><li>新規拠点立ち上げ 進捗管理ダッシュボード</li><li>LP原稿オーサリング＆プレビューツール</li><li>価格シミュレーター（UI設計・プロトタイプ）</li><li>施策効果測定ダッシュボード（KGI/KPI管理）</li><li>公開前 差分検証ツール</li><li>コンテンツ品質の全数監査ツール</li><li>ヒアリングデータの全項目スクリーニングツール</li><li>行政手続きの進捗管理（10段階ワークフロー）</li><li>拠点周辺施設の到達圏マッピング</li><li>施工図からの間取り図自動作成</li><li>掲載写真の自動選定・自動レタッチ</li></ul></details>
+  </div>
+</div></section>
+
+<section class="sec alt" id="philosophy"><div class="wrap">
+  <div class="sh" style="margin-bottom:clamp(24px,3vw,36px)">
+    <p class="idx"><span class="n">04</span><span class="en">Mind ／ How ／ Why</span><span class="jp">考え方</span></p>
+  </div>
+  <div class="ph-list">
+    <article class="ph" id="mind" data-sec="mind">
+      <header class="ph-hd"><p class="ph-k"><span class="en">Mind</span><span class="jp">AIとの距離</span></p>
+        <h3 class="ph-st">わたしにとってAIは、<br><em>脳の拡張機能</em>である。</h3></header>
+      <div class="ph-bd">
+        <p class="lead">アイデアは、思いついた速度のまま形になる時代だ。だからこそ、成果物の質を決めるのは技術ではない。<b>頭の中にあるイメージを、どれだけ高い解像度で「言語化」できるか。</b>創造のボトルネックは、いつだって自分自身の思考力にある。</p>
+        <div class="sub">
+          <div><h4>AIが拡張するのは、作業する「手」ではなく、思考の「土台」だ。</h4><p>土台の高さで、届く未来の距離が決まる。だからこそ、<b>"脳を複製して、配る"ことで、チーム全体の土台を底上げしていく。</b></p></div>
+        </div>
+        <div class="fig-scroll"><figure class="fig" id="fig-mind">
+    <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="一段ずつ階段を登る様子と、トランポリンで高い位置から始められる様子を比べたイラスト">
+      <style>#fig-mind .gl{stroke:var(--line2);stroke-width:1.4}#fig-mind .st{stroke:var(--ink);stroke-width:2.2;fill:none;stroke-linejoin:round}#fig-mind .bl{fill:var(--acc)}#fig-mind .bl.mut{fill:var(--muted)}#fig-mind .ey{fill:#fff}#fig-mind .mo{fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round}#fig-mind .tr{fill:var(--acc)}#fig-mind .lg{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}#fig-mind .arc{stroke:var(--acc);stroke-width:1.6;fill:none;stroke-dasharray:6 5;opacity:.75}#fig-mind .lvl{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:5 5;opacity:.45}#fig-mind .k{fill:var(--muted);font-family:var(--en);font-size:11.5px;letter-spacing:.12em}#fig-mind .ka{fill:var(--acc);font-family:var(--en);font-size:11.5px;letter-spacing:.12em}#fig-mind .t{fill:var(--ink);font-family:var(--jp);font-size:14px;font-weight:700}#fig-mind .tm{fill:var(--muted);font-family:var(--jp);font-size:12px}#fig-mind .mv{stroke:var(--acc);stroke-width:2;stroke-linecap:round;opacity:.5}
+      </style>
+
+      <text class="k" x="60" y="38">BEFORE</text>
+      <text class="tm" x="60" y="58">一段ずつ、全員で登る</text>
+      <text class="ka" x="560" y="38">AFTER</text>
+      <text class="t" x="560" y="58">跳ぶための土台をつくる</text>
+
+      <line class="gl" x1="20" y1="352" x2="980" y2="352"/>
+      <path class="st" d="M60 352 V322 H114 V292 H168 V262 H222 V232 H276 V202 H330 V172 H384"/>
+      <circle class="bl mut" cx="87" cy="307" r="13"/>
+      <circle class="ey" cx="83" cy="306" r="2.5"/>
+      <circle class="ey" cx="91" cy="306" r="2.5"/>
+      <circle class="bl mut" cx="141" cy="277" r="13"/>
+      <circle class="ey" cx="137" cy="276" r="2.5"/>
+      <circle class="ey" cx="145" cy="276" r="2.5"/>
+      <circle class="bl mut" cx="195" cy="247" r="13"/>
+      <circle class="ey" cx="191" cy="246" r="2.5"/>
+      <circle class="ey" cx="199" cy="246" r="2.5"/>
+
+      <line class="lvl" x1="384" y1="172" x2="848" y2="172"/>
+      <text class="tm" x="392" y="164">これまでの到達点</text>
+
+      <ellipse class="tr" cx="620" cy="330" rx="92" ry="13"/>
+      <line class="lg" x1="545" y1="336" x2="523" y2="352"/>
+      <line class="lg" x1="695" y1="336" x2="717" y2="352"/>
+      <text class="t" x="620" y="378" text-anchor="middle">AIでつくった土台</text>
+      <line class="mv" x1="620" y1="302" x2="620" y2="286"/>
+      <line class="mv" x1="596" y1="308" x2="588" y2="295"/>
+      <line class="mv" x1="644" y1="308" x2="652" y2="295"/>
+
+      <path class="arc" d="M626 300 Q742 88 898 128"/>
+      <circle class="bl" cx="620" cy="296" r="18"/>
+      <circle class="ey" cx="614" cy="294" r="3.4"/>
+      <circle class="ey" cx="626" cy="294" r="3.4"/>
+      <path class="mo" d="M615 301 q5 4 9 0"/>
+      <circle class="bl" cx="750" cy="157" r="20"/>
+      <circle class="ey" cx="743" cy="155" r="3.8"/>
+      <circle class="ey" cx="757" cy="155" r="3.8"/>
+      <path class="mo" d="M745 163 q5 4 10 0"/>
+      <circle class="bl" cx="898" cy="128" r="26"/>
+      <circle class="ey" cx="889" cy="125" r="4.9"/>
+      <circle class="ey" cx="907" cy="125" r="4.9"/>
+      <path class="mo" d="M891 136 q7 6 14 0"/>
+      <text class="t" x="898" y="196" text-anchor="middle">ここからスタート</text>
+    </svg>
+  </figure></div><p class="swipe-hint fig-hint">← 図は横にスクロールできます →</p>
+      </div>
+    </article>
+    <article class="ph" id="how" data-sec="how">
+      <header class="ph-hd"><p class="ph-k"><span class="en">How</span><span class="jp">仕事の進め方</span></p>
+        <h3 class="ph-st">現場のペインを、<br><em>置き去りにしない。</em></h3></header>
+      <div class="ph-bd">
+        <p class="lead">ツールがどれだけ進化しても、価値の源泉は『現場を知る人間の思考の解像度』にある。だからこそ、自分の頭を言語化・型化して組織に配り、目の前の人の時間を救うために技術を使う。</p>
+        <ol class="rules">
+          <li><b>使う人の苦痛から着手する</b><span>ペインを紐解くと、課題の本質が見えてくる。現場の声は、組織にとって宝だ。</span></li>
+          <li><b>基幹のシステムには触れず、AIは「使い捨て」の前提で足回り良く組み上げる。</b><span>制約は言い訳ではなく、設計の前提だ。長く維持すべきシステムと、スピード重視のAIを正しく棲み分けること。捨てられる強みを持つからこそ、最短距離で現場を救うプロダクトが作れる。</span></li>
+        </ol>
+      </div>
+    </article>
+    <article class="ph" id="why" data-sec="why">
+      <header class="ph-hd"><p class="ph-k"><span class="en">Why</span><span class="jp">なぜAIなのか</span></p>
+        <h3 class="ph-st">AIは、人の幸福に<br><em>直結する</em>と体感した。</h3></header>
+      <div class="ph-bd">
+        <p class="lead">効率化は、本質に向き合うための余白を生む。売上の追求で後回しにされた"質"を取り戻すこと。<b>この仕組みを一事業に留めず、社会の土台にしていきたい。</b></p>
+        <div class="chain">
+          <div class="ch"><p class="s">01</p><p class="h">効率化する</p><p class="p">定型の記録・通知・確認を機械に寄せる。</p></div>
+          <div class="ch"><p class="s">02</p><p class="h">時間が空く</p><p class="p">本来やりたかった仕事に、はじめて手が回る。</p></div>
+          <div class="ch"><p class="s">03</p><p class="h">"質"に向き合える</p><p class="p">売上を追う過程で、後回しにされ続けてきた部分。</p></div>
+          <div class="ch"><p class="s">04</p><p class="h">体験がよくなる</p><p class="p">ユーザーに届くものの精度が上がる。</p></div>
+          <div class="ch last"><p class="s">05</p><p class="h">社会がよくなる</p><p class="p">ここまでがひとつながりだと、実感として分かった。</p></div>
+        </div>
+        <div class="fig-scroll"><figure class="fig" id="fig-why">
+      <svg viewBox="-4 -18 716 216" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="定型業務が縮むと質に向き合う時間が生まれる図">
+      <style>#fig-why .ln{stroke:var(--line2);stroke-width:1.3}#fig-why .em{stroke:var(--acc);stroke-width:1.7;fill:none;stroke-linecap:round}#fig-why .fl{fill:var(--acc)}#fig-why .fm{fill:var(--muted)}#fig-why .t{fill:var(--ink);font-family:var(--jp);font-size:13px;font-weight:700}#fig-why .tm{fill:var(--muted);font-family:var(--jp);font-size:11.5px}#fig-why .te{fill:var(--acc);font-family:var(--en);font-size:10.5px;letter-spacing:.16em}#fig-why .bx{fill:none;stroke:var(--line2);stroke-width:1.2}#fig-why .bxa{fill:var(--acc-soft);stroke:var(--acc);stroke-width:1.3}#fig-why .sb{fill:#A6A0A0}#fig-why .sl{stroke:#A6A0A0;stroke-width:5;stroke-linecap:round;fill:none}#fig-why .sf{stroke:#fff;stroke-width:3.4;stroke-linecap:round;fill:none}#fig-why .sey{fill:#fff}#fig-why .hb{fill:var(--acc)}#fig-why .hf{stroke:#fff;stroke-width:3.6;stroke-linecap:round;fill:none}#fig-why .sp{fill:var(--acc);opacity:.85}
+      </style>
+      <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--acc)"/></marker></defs>
+      <text class="te" x="0" y="8">BEFORE</text>
+      <rect class="bx" x="0" y="20" width="620" height="32" rx="3"/>
+      <rect class="fm" x="1" y="21" width="531" height="30" rx="2" opacity=".2"/>
+      <text class="tm" x="14" y="41">記録・通知・確認といった定型</text>
+      <text class="tm" x="576" y="41">質</text>
+      <g transform="translate(648.0,12.0) scale(0.4000)"><path class="sl" d="M14 30 L1 19"/><path class="sl" d="M40 13 L36 -3"/><path class="sl" d="M80 13 L84 -3"/><path class="sl" d="M106 30 L119 19"/><path class="sb" d="M60.00 15.60C68.48 16.52,75.72 28.00,83.14 34.42C90.56 40.85,103.40 46.69,104.51 54.15C105.62 61.61,94.70 71.00,89.79 79.20C84.88 87.40,82.11 100.45,75.05 103.35C67.99 106.24,56.56 99.64,47.41 96.58C38.27 93.52,23.84 91.78,20.16 85.00C16.48 78.22,23.32 65.24,25.33 55.89C27.35 46.54,26.45 35.62,32.23 28.91C38.01 22.19,51.52 14.68,60.00 15.60Z"/><path class="sf" d="M39 47 L55 53"/><path class="sf" d="M85 47 L69 53"/><circle class="sey" cx="48" cy="61" r="5.4"/><circle class="sey" cx="76" cy="61" r="5.4"/><path class="sf" d="M52 84 q9 -8 18 0"/><path class="sb" d="M104 52 q5.5 10 0 13.5 q-5.5 -3.5 0 -13.5Z"/></g>
+      <path class="em" marker-end="url(#ar2)" d="M310 70 L310 102"/>
+      <text class="te" x="0" y="122">AFTER</text>
+      <rect class="bx" x="0" y="134" width="620" height="32" rx="3"/>
+      <rect class="fm" x="1" y="135" width="221" height="30" rx="2" opacity=".2"/>
+      <rect class="bxa" x="221" y="134" width="398" height="32" rx="2"/>
+      <text class="tm" x="14" y="155">定型</text>
+      <text class="t" x="420" y="155" text-anchor="middle">本来やりたかった仕事に向き合う時間</text>
+      <g transform="translate(648.0,126.0) scale(0.4000)"><path class="sp" d="M10.0 14.0 Q10.0 24.0 20.0 24.0 Q10.0 24.0 10.0 34.0 Q10.0 24.0 0.0 24.0 Q10.0 24.0 10.0 14.0Z"/><path class="sp" d="M112.0 28.0 Q112.0 36.0 120.0 36.0 Q112.0 36.0 112.0 44.0 Q112.0 36.0 104.0 36.0 Q112.0 36.0 112.0 28.0Z"/><path class="sp" d="M98.0 99.0 Q98.0 106.0 105.0 106.0 Q98.0 106.0 98.0 113.0 Q98.0 106.0 91.0 106.0 Q98.0 106.0 98.0 99.0Z"/><path class="sp" d="M18.0 96.0 Q18.0 102.0 24.0 102.0 Q18.0 102.0 18.0 108.0 Q18.0 102.0 12.0 102.0 Q18.0 102.0 18.0 96.0Z"/><path class="hb" d="M60.00 15.60C68.48 16.52,75.72 28.00,83.14 34.42C90.56 40.85,103.40 46.69,104.51 54.15C105.62 61.61,94.70 71.00,89.79 79.20C84.88 87.40,82.11 100.45,75.05 103.35C67.99 106.24,56.56 99.64,47.41 96.58C38.27 93.52,23.84 91.78,20.16 85.00C16.48 78.22,23.32 65.24,25.33 55.89C27.35 46.54,26.45 35.62,32.23 28.91C38.01 22.19,51.52 14.68,60.00 15.60Z"/><path class="hf" d="M41 60 q7 -10 14 0"/><path class="hf" d="M69 60 q7 -10 14 0"/><path class="hf" d="M49 76 q11 13 22 0"/></g>
+      </svg>
+    </figure></div><p class="swipe-hint fig-hint">← 図は横にスクロールできます →</p>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<section class="sec" id="next" data-sec="next"><div class="wrap">
+  <div class="sh">
+    <p class="idx"><span class="n">05</span><span class="en">Next</span><span class="jp">これから</span></p>
+    <h2 class="st rb-t">この力を、共創の現場で<br>使えるところへ。</h2>
+    <p class="lead">大切にしたいのは、単なる効率化にとどまらない<b>「本当に必要な価値」づくり</b>。まだ名前のない課題をすくい上げ、心地よく活きるプロダクトをかたちにすること。<b>培ってきた力を共創の場へ広げ、これからの社会を支えるプロダクトを届けていきたい。</b></p>
+  </div>
+  <div class="next-fig fig-scroll"><figure class="fig" id="fig-next">
+      <svg viewBox="-8 -74 716 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ひとつの事業で確かめたことを、社会にある同じ構造の課題に対して、症状ではなく原因から手を入れる図">
+      <style>#fig-next .ln{stroke:var(--line2);stroke-width:1.3}#fig-next .em{stroke:var(--acc);stroke-width:1.7;fill:none;stroke-linecap:round}#fig-next .fl{fill:var(--acc)}#fig-next .fm{fill:var(--muted)}#fig-next .t{fill:var(--ink);font-family:var(--jp);font-size:13px;font-weight:700}#fig-next .tm{fill:var(--muted);font-family:var(--jp);font-size:11.5px}#fig-next .te{fill:var(--acc);font-family:var(--en);font-size:10.5px;letter-spacing:.16em}#fig-next .bx{fill:none;stroke:var(--line2);stroke-width:1.2}#fig-next .bxa{fill:var(--acc-soft);stroke:var(--acc);stroke-width:1.3}#fig-next .mb{fill:var(--acc)}#fig-next .gb{fill:var(--acc-soft);stroke:var(--acc);stroke-width:1.4}#fig-next .gl{stroke:var(--acc);stroke-width:1;fill:none;opacity:.42}#fig-next .ray{stroke-width:2.4;stroke-linecap:round;opacity:.9}#fig-next .mey{fill:#fff}#fig-next .mmo{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round}
+      </style>
+      <defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--acc)"/></marker>
+      <linearGradient id="rainN" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8FB0"/><stop offset=".22" stop-color="#FFBE7C"/><stop offset=".45" stop-color="#7FDCAE"/><stop offset=".68" stop-color="#7DC4F5"/><stop offset=".88" stop-color="#B79AF2"/><stop offset="1" stop-color="#FF8FB0"/></linearGradient></defs>
+
+      <circle class="bx" cx="95" cy="86" r="58" stroke-dasharray="4 5"/><circle class="bxa" cx="95" cy="86" r="30"/><line class="ray" stroke="#FF5C8A" x1="95.0" y1="60.0" x2="95.0" y2="45.0"/><path fill="#FF5C8A" d="M95.0 34.0 L99.4 45.0 L90.6 45.0Z"/><line class="ray" stroke="#C9BE3E" x1="121.0" y1="86.0" x2="136.0" y2="86.0"/><path fill="#C9BE3E" d="M147.0 86.0 L136.0 90.4 L136.0 81.6Z"/><line class="ray" stroke="#3FC7B4" x1="95.0" y1="112.0" x2="95.0" y2="127.0"/><path fill="#3FC7B4" d="M95.0 138.0 L90.6 127.0 L99.4 127.0Z"/><line class="ray" stroke="#9B6BF0" x1="69.0" y1="86.0" x2="54.0" y2="86.0"/><path fill="#9B6BF0" d="M43.0 86.0 L54.0 81.6 L54.0 90.4Z"/><g transform="translate(80.0,71.0) scale(0.2500)"><path fill="url(#rainN)" d="M60.00 15.60C68.48 16.52,75.72 28.00,83.14 34.42C90.56 40.85,103.40 46.69,104.51 54.15C105.62 61.61,94.70 71.00,89.79 79.20C84.88 87.40,82.11 100.45,75.05 103.35C67.99 106.24,56.56 99.64,47.41 96.58C38.27 93.52,23.84 91.78,20.16 85.00C16.48 78.22,23.32 65.24,25.33 55.89C27.35 46.54,26.45 35.62,32.23 28.91C38.01 22.19,51.52 14.68,60.00 15.60Z"/><circle class="mey" cx="48" cy="58" r="7"/><circle class="mey" cx="76" cy="58" r="7"/><path class="mmo" d="M53 78 q9 7 18 0"/></g><text class="te" x="95" y="200" text-anchor="middle">LOCAL</text><text class="tm" x="95" y="222" text-anchor="middle">ひとつの現場で、確かめた</text>
+      <path class="em" marker-end="url(#ar4)" d="M163 86 L208 86"/>
+      <circle class="bx" cx="300" cy="86" r="82" stroke-dasharray="4 5"/><circle class="bxa" cx="300" cy="86" r="48"/><line class="ray" stroke="#FF5C8A" x1="300.0" y1="56.0" x2="300.0" y2="23.0"/><path fill="#FF5C8A" d="M300.0 12.0 L304.4 23.0 L295.6 23.0Z"/><line class="ray" stroke="#FF8A5C" x1="321.2" y1="64.8" x2="344.5" y2="41.5"/><path fill="#FF8A5C" d="M352.3 33.7 L347.7 44.6 L341.4 38.3Z"/><line class="ray" stroke="#C9BE3E" x1="330.0" y1="86.0" x2="363.0" y2="86.0"/><path fill="#C9BE3E" d="M374.0 86.0 L363.0 90.4 L363.0 81.6Z"/><line class="ray" stroke="#4ECB8B" x1="321.2" y1="107.2" x2="344.5" y2="130.5"/><path fill="#4ECB8B" d="M352.3 138.3 L341.4 133.7 L347.7 127.4Z"/><line class="ray" stroke="#3FC7B4" x1="300.0" y1="116.0" x2="300.0" y2="149.0"/><path fill="#3FC7B4" d="M300.0 160.0 L295.6 149.0 L304.4 149.0Z"/><line class="ray" stroke="#3FA0F0" x1="278.8" y1="107.2" x2="255.5" y2="130.5"/><path fill="#3FA0F0" d="M247.7 138.3 L252.3 127.4 L258.6 133.7Z"/><line class="ray" stroke="#9B6BF0" x1="270.0" y1="86.0" x2="237.0" y2="86.0"/><path fill="#9B6BF0" d="M226.0 86.0 L237.0 81.6 L237.0 90.4Z"/><line class="ray" stroke="#D2649E" x1="278.8" y1="64.8" x2="255.5" y2="41.5"/><path fill="#D2649E" d="M247.7 33.7 L258.6 38.3 L252.3 44.6Z"/><g transform="translate(281.0,67.0) scale(0.3167)"><path fill="url(#rainN)" d="M60.00 15.60C68.48 16.52,75.72 28.00,83.14 34.42C90.56 40.85,103.40 46.69,104.51 54.15C105.62 61.61,94.70 71.00,89.79 79.20C84.88 87.40,82.11 100.45,75.05 103.35C67.99 106.24,56.56 99.64,47.41 96.58C38.27 93.52,23.84 91.78,20.16 85.00C16.48 78.22,23.32 65.24,25.33 55.89C27.35 46.54,26.45 35.62,32.23 28.91C38.01 22.19,51.52 14.68,60.00 15.60Z"/><circle class="mey" cx="48" cy="58" r="7"/><circle class="mey" cx="76" cy="58" r="7"/><path class="mmo" d="M53 78 q9 7 18 0"/></g><text class="te" x="300" y="200" text-anchor="middle">ORGANIZATION</text><text class="tm" x="300" y="222" text-anchor="middle">組織ぜんぶに、広げた</text>
+      <path class="em" marker-end="url(#ar4)" d="M392 86 L433 86"/>
+      <circle class="bx" cx="555" cy="86" r="114" stroke-dasharray="4 5"/><circle class="gb" cx="555" cy="86" r="96"/><ellipse class="gl" cx="555" cy="86" rx="32" ry="96"/><ellipse class="gl" cx="555" cy="86" rx="64" ry="96"/><line class="gl" x1="459" y1="86" x2="651" y2="86"/><path class="gl" d="M471.9 38 A 104 104 0 0 1 638.1 38"/><path class="gl" d="M471.9 134 A 104 104 0 0 0 638.1 134"/><line class="ray" stroke="#FF5C8A" x1="555.0" y1="54.0" x2="555.0" y2="9.0"/><path fill="#FF5C8A" d="M555.0 -2.0 L559.4 9.0 L550.6 9.0Z"/><line class="ray" stroke="#FF8A5C" x1="573.8" y1="60.1" x2="600.3" y2="23.7"/><path fill="#FF8A5C" d="M606.7 14.8 L603.8 26.3 L596.7 21.1Z"/><line class="ray" stroke="#FF9F45" x1="585.4" y1="76.1" x2="628.2" y2="62.2"/><path fill="#FF9F45" d="M638.7 58.8 L629.6 66.4 L626.9 58.0Z"/><line class="ray" stroke="#C9BE3E" x1="585.4" y1="95.9" x2="628.2" y2="109.8"/><path fill="#C9BE3E" d="M638.7 113.2 L626.9 114.0 L629.6 105.6Z"/><line class="ray" stroke="#4ECB8B" x1="573.8" y1="111.9" x2="600.3" y2="148.3"/><path fill="#4ECB8B" d="M606.7 157.2 L596.7 150.9 L603.8 145.7Z"/><line class="ray" stroke="#3FC7B4" x1="555.0" y1="118.0" x2="555.0" y2="163.0"/><path fill="#3FC7B4" d="M555.0 174.0 L550.6 163.0 L559.4 163.0Z"/><line class="ray" stroke="#3FA0F0" x1="536.2" y1="111.9" x2="509.7" y2="148.3"/><path fill="#3FA0F0" d="M503.3 157.2 L506.2 145.7 L513.3 150.9Z"/><line class="ray" stroke="#6E86F2" x1="524.6" y1="95.9" x2="481.8" y2="109.8"/><path fill="#6E86F2" d="M471.3 113.2 L480.4 105.6 L483.1 114.0Z"/><line class="ray" stroke="#9B6BF0" x1="524.6" y1="76.1" x2="481.8" y2="62.2"/><path fill="#9B6BF0" d="M471.3 58.8 L483.1 58.0 L480.4 66.4Z"/><line class="ray" stroke="#D2649E" x1="536.2" y1="60.1" x2="509.7" y2="23.7"/><path fill="#D2649E" d="M503.3 14.8 L513.3 21.1 L506.2 26.3Z"/><g transform="translate(531.0,62.0) scale(0.4000)"><path fill="url(#rainN)" d="M60.00 15.60C68.48 16.52,75.72 28.00,83.14 34.42C90.56 40.85,103.40 46.69,104.51 54.15C105.62 61.61,94.70 71.00,89.79 79.20C84.88 87.40,82.11 100.45,75.05 103.35C67.99 106.24,56.56 99.64,47.41 96.58C38.27 93.52,23.84 91.78,20.16 85.00C16.48 78.22,23.32 65.24,25.33 55.89C27.35 46.54,26.45 35.62,32.23 28.91C38.01 22.19,51.52 14.68,60.00 15.60Z"/><circle class="mey" cx="48" cy="58" r="7"/><circle class="mey" cx="76" cy="58" r="7"/><path class="mmo" d="M53 78 q9 7 18 0"/></g><text class="te" x="555" y="200" text-anchor="middle">SOCIETY</text><text class="tm" x="555" y="222" text-anchor="middle">社会に向けて、これから</text>
+      <text class="t" x="555" y="-52" text-anchor="middle">同じ課題を、社会全体に向けてデザインしていきたい</text>
+      </svg>
+    </figure></div><p class="swipe-hint fig-hint">← 図は横にスクロールできます →</p>
+</div></section>
+
+<section class="contact" id="contact" data-sec="contact"><div class="wrap">
+  <p class="eyebrow">Contact</p>
+  <div class="metamon">
+    <span class="blobwrap"><svg class="blob" width="132" height="132" viewBox="0 0 120 120" role="img" aria-label="メタモン（かたちを変えつづけるマスコット）"><path class="body" d=""/><circle class="eye" cx="48" cy="58" r="6"/><circle class="eye" cx="76" cy="58" r="6"/><path class="mouth" d="M53 78 q9 7 18 0"/></svg></span>
+    <p class="mt-bubble">メールにてご連絡ください</p>
+  </div>
+  <div class="mail"><span id="mailAddr">saki.m.328@gmail.com</span><button class="copy" type="button" id="copyMail">COPY</button></div>
+  <dl class="cinfo">
+    <div><dt>Tel</dt><dd class="en">090-3774-6827</dd></div>
+    <div><dt>Language</dt><dd>日本語（ネイティブ）<br>英語（TOEIC 955／英検準1級）</dd></div>
+    <div><dt>Base</dt><dd>北海道在住<br>フルリモート</dd></div>
+  </dl>
+</div></section>
+
+<dialog class="mdl" id="m-free" aria-label="個人事業">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2018 —</span><span class="tg">ブランディング</span><span class="tg">マーケティング</span></p>
+    <h3>個人事業（2017.12 —）</h3>
+    <p class="mr">価値を損なわずに、いまの買い手へ翻訳する。</p>
+    <div class="mg" style="grid-template-columns:1fr;margin:0 0 22px"><img src="img/craft-01.jpg" alt="伝統工芸の織物を使ったパンプス" loading="lazy"></div>
+    <p class="mlead">京都をはじめとする伝統工芸・地場産業の事業者を、一社単位で支援している。長い歴史と確立された作り方を持つものづくりの価値を損なわずに、<b>いまの買い手に届く形へ翻訳する</b>のが主な役割。</p>
+    <div class="ms"><h4>支援の内容</h4><ul><li>ブランディング：強みの言語化と、見せ方・伝え方の整理</li><li>商品開発：いまの暮らしで使われる形への企画と、つくり手との仕様のすり合わせ</li><li>マーケティング：売り場や販路に合わせた訴求と販促</li><li>展示会出展の企画・運営：何を見せ、どう回し、その場で何を得て帰るかまで設計</li></ul></div>
+    <div class="ms"><h4>大切にしていること</h4><ul><li>体制も予算も限られる相手が多いため、<b>「何をやらないか」まで含めて提案し</b>、実行できる範囲に落とし込む</li><li>パリで学んだ手仕事の知見と、つくり手への理解を土台に、外の視点として企画を持ち込む</li></ul></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-acc" aria-label="アクセラレーター／ファンド運営会社のサポート">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2017 — 2019</span><span class="tg">スタートアップ支援</span><span class="tg">展示会</span></p>
+    <h3>アクセラレーター／ファンド運営会社のサポート</h3>
+    <p class="mr">技術起点のものを、どう伝えるか。</p>
+    <p class="mlead">社会で実践的な経験を積むため、アクセラレーター／ファンド運営会社でサポート業務に従事した。医療・インフラ領域のスタートアップ支援。ポータブル胎児心拍モニタの事業サポート、ピッチイベントの設計・運営、展示会出展の企画から当日進行まで。</p>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-paris" aria-label="エコール・ルサージュ">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2017 / PARIS</span><span class="tg">オートクチュール刺繍</span></p>
+    <h3>エコール・ルサージュ（パリ）</h3>
+    <p class="mr">後戻りできない工程を、頭の中で組み立てきる。</p>
+    <div class="mg" style="grid-template-columns:1fr;margin:0 0 22px"><img src="img/emb-01.jpg" alt="オートクチュール刺繍の作品" loading="lazy"></div>
+    <p class="mlead">パリのエコール・ルサージュで、オートクチュール刺繍の専門課程をプロフェッショナルレベルまで修了。オートクチュールのメゾンの刺繍を手がけるアトリエ「ルサージュ」が開いた学校で、現地の語学学校に通いながら約10ヶ月学んだ。</p>
+    <div class="ms"><h4>学んだこと</h4><ul><li>スパンコール、ビーズ、パール、ラインストーン、コード、金属糸など、素材ごとに異なる留め方と手順</li><li>ひとつの図案を仕上げるのに長い時間がかかる手仕事。図案・糸・順番を、最後の一針まで頭の中で通してから針を持つ</li><li>本場のプロの仕事を間近で見て、仕上がりに妥協しない基準を自分の中に持つ</li></ul></div>
+    <div class="ms"><h4>いまに活きていること</h4><ul><li>素材も時間も、使えば戻らない。<b>後戻りできない工程を、先に頭の中で組み立てきる癖</b>は、このとき身についた</li><li>陶器の量産管理やカタログ制作、そしてAIの仕組みづくりでも、動く前にどこまで詰めるかを最初に決めている</li></ul></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-hrg" aria-label="保育園留学">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2024 — 現在</span><span class="tg">地域プロデュース</span><span class="tg">販売戦略</span><span class="tg">価格決定</span><span class="tg">LP制作PMO</span></p>
+    <h3>保育園留学</h3>
+    <p class="mr">地域プロデューサーとして、販売地域を横並びで管理</p>
+    <p class="mlead">家族で地域に1〜2週間滞在し、こどもは現地の保育園に通う留学プログラム。株式会社キッチハイクにて、地域プロデューサーとして販売地域を横並びで管理している。<b>販売戦略の立案、数字の追跡、販売価格の決定から、LP制作の委託先事業者とのPMOまでを担当。</b>あわせてカスタマーサクセスとAI活用推進も担う（業務委託／社員と同等の職務範囲・裁量）。</p>
+    <div class="ms"><h4>新地域の立ち上げ</h4><ul>
+      <li>自治体・保育施設・宿泊施設・社内を巻き込んだ立ち上げの進行管理。工程設計、期日管理、マスタ整備、公開前チェックまで</li>
+      <li>新規地域・新規パートナーの開拓と、販売戦略の立案</li>
+      <li>各地域のLP制作を統括し、制作の委託先事業者とのPMOを担う</li>
+      <li>自治体との共同事業では、調整役ではなく毎回たたき台を持って場に臨む</li></ul></div>
+    <div class="ms"><h4>サービス設計</h4><ul>
+      <li>販売価格の決定。料金・プラン設計と、値付けロジックの検証</li>
+      <li>販売地域ごとの数字を追いかけ、打ち手を決める</li>
+      <li>申込〜受け入れ〜滞在〜アフターフォローまでの業務フロー設計</li>
+      <li>利用者だけでなく、受け入れ側（保育現場・ホスト）の負荷も含めて設計する</li></ul></div>
+    <div class="ms"><h4>いま</h4><ul>
+      <li>この事業を対象に、生成AIを業務基盤へ組み込む取り組みを主導。本サイトの Work / How で扱っているのはすべてこの現場の話</li></ul></div>
+    <div class="ml"><a href="https://hoikuen-ryugaku.com/" target="_blank" rel="noopener">hoikuen-ryugaku.com ↗</a></div>
+    <div class="mg"><img src="img/hrg-05.jpg" alt="厚沢部町の雪原で過ごす留学中の親子" loading="lazy"><img src="img/hrg-01.jpg" alt="親子で田んぼのあぜ道を歩く" loading="lazy"><img src="img/hrg-02.jpg" alt="留学先地域の海岸線" loading="lazy"><img src="img/hrg-03.jpg" alt="園までの道のりと里の風景" loading="lazy"><img src="img/hrg-04.jpg" alt="森の中の園庭と木製遊具" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-jpe" aria-label="Japan Preschool Exchange">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2024 — 現在</span><span class="tg">英語LP</span><span class="tg">コピーライティング</span><span class="tg">インバウンド</span><span class="tg">CS設計</span></p>
+    <h3>Japan Preschool Exchange</h3>
+    <p class="mr">海外ファミリー向けの立ち上げと英語LP</p>
+    <p class="mlead">保育園留学のインバウンド版。海外の家族が1〜3週間（または1〜3ヶ月）日本の地域に滞在し、こどもは地元の園に通う。園の開拓から英語での発信・商談まで担当している。</p>
+    <div class="ms"><h4>英語LP</h4><ul>
+      <li>海外ファミリー向けLPを、企画・原稿制作・カメラマンの手配・管理画面への流し込みまで<b>すべて一人で</b>担当</li>
+      <li>翻訳ではなく、日本の保育・教育文化と海外ユーザーの期待値の差分を踏まえた表現設計</li>
+      <li>日英バイリンガル資料（滞在ガイド、提案資料、マーケティングコンテンツ）の作成</li></ul></div>
+    <div class="ms"><h4>受け入れ設計と商談</h4><ul>
+      <li>園ごとの受け入れ条件の整理と、宿泊・滞在利便性の評価基準づくり</li>
+      <li>オンラインミーティング、問い合わせ対応、事前案内、契約前後の調整を英語のまま完結</li>
+      <li>受け入れ側の園にとっても無理のない運用に落とし込む</li></ul></div>
+    <div class="ml"><a href="https://preschool-exchange.com/" target="_blank" rel="noopener">preschool-exchange.com ↗</a></div>
+    <div class="mg"><img src="img/jpe-01.jpg" alt="Japan Preschool Exchange の英語LPトップ" loading="lazy"><img src="img/jpe-02.jpg" alt="Exchange with Friends のバナー" loading="lazy"><img src="img/jpe-03.jpg" alt="期間限定キャンペーンのバナー" loading="lazy"><img src="img/jpe-04.jpg" alt="Friend Referral Program の告知" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-kurasu" aria-label="Kurasu">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2024 — 2026</span><span class="tg">商品企画</span><span class="tg">生産管理</span><span class="tg">ブランド</span></p>
+    <h3>Kurasu</h3>
+    <p class="mr">オリジナルプロダクトの商品企画</p>
+    <p class="mlead">国内外に展開する京都のコーヒーブランド。京都をはじめとする地場のものづくりの技を活かしたグッズを企画し、日本のみならず世界へ届けている。</p>
+    <div class="ms"><h4>担当</h4><ul><li>陶器・繊維あわせて約10種類、<b>SKUベースで30〜50点</b>の企画・開発。5カ国以上で展開</li><li>産地・工場5〜10社を開拓。視察から生産条件の交渉まで</li><li>SKUが増えるほど資材も掛け算で増える</li><li>SKUごとの発注数の割り付け、検品、アッセンブリ、個包装、出荷までの管理。<b>陶器ラインは初回ロット7,000個規模</b></li></ul></div>
+    <div class="ms"><h4>つくり方から決めたもの</h4><ul><li><b>陶器（“Kyoto”シリーズ）</b>　半磁器。窯元で成形・施釉・刻印・窯出しまで見て仕様に反映</li><li><b>手ぬぐい</b>　京型友禅。工場の柄送り工程に立ち会い決定</li><li><b>ソックス</b>　1950年創業の奈良の靴下工場。焙煎度3色×2way仕様</li><li><b>キャップ・トート</b>　刺繍版下、生地・金具選定</li></ul></div>
+    <div class="ms mp"><h4>商品ページ<span class="ct">22商品 ／ 69 SKU</span></h4><ul class="plist"><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-design-cap-2025" target="_blank" rel="noopener"><b>キャップ “I drink specialty Coffee from Kyoto”</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-cotten-tote-bag" target="_blank" rel="noopener"><b>コットントートバッグ</b><span class="sk">2 SKU　<i>色2</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-kyoto-series-cup" target="_blank" rel="noopener"><b>“Kyoto”シリーズ カップ</b><span class="sk">8 SKU　<i>4サイズ×マット／グレーズ</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-kyoto-series-saucer-oval" target="_blank" rel="noopener"><b>“Kyoto”シリーズ ソーサー</b><span class="sk">4 SKU　<i>2形状×マット／グレーズ</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-coffee-beans-socks" target="_blank" rel="noopener"><b>コーヒービーンズソックス</b><span class="sk">6 SKU　<i>焙煎度3色×2サイズ</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-yuzen-dyeing-tenugui" target="_blank" rel="noopener"><b>京型友禅 手ぬぐい</b><span class="sk">2 SKU　<i>色2</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-coffee-canister" target="_blank" rel="noopener"><b>コーヒーキャニスター缶 by 加藤製作所</b><span class="sk">2 SKU　<i>色2</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-coffee-canister-by-kato-seisakujyo" target="_blank" rel="noopener"><b>オリジナルコーヒー缶</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-stainless-travel-tumbler" target="_blank" rel="noopener"><b>ステンレス トラベルタンブラー</b><span class="sk">2 SKU　<i>色2</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-stainless-to-go-tumbler" target="_blank" rel="noopener"><b>ステンレス トゥーゴータンブラー 240ml</b><span class="sk">2 SKU　<i>色2</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-classic-paperbag" target="_blank" rel="noopener"><b>オリジナルショッパー</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-mates-kyoto-stand" target="_blank" rel="noopener"><b>Tシャツ Kurasu Mates Kyoto Stand</b><span class="sk">5 SKU　<i>S〜XXL</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-mates-ebisugawa-tshirt" target="_blank" rel="noopener"><b>Tシャツ Kurasu Mates Ebisugawa</b><span class="sk">10 SKU　<i>2色×S〜XXL</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-logo-t-shirts-black" target="_blank" rel="noopener"><b>ロゴ T-shirts (Black)</b><span class="sk">4 SKU　<i>S〜XL</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-logo-long-sleeve-t-shirts-black" target="_blank" rel="noopener"><b>ロゴ長袖Tシャツ ブラック</b><span class="sk">5 SKU　<i>S〜XXL</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-movemug-kurasu-mates-kyoto-stand" target="_blank" rel="noopener"><b>ムーブマグ Kurasu Mates Kyoto Stand</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/origanal-movemug-kurasu-mates-ebisugawa" target="_blank" rel="noopener"><b>ムーブマグ Kurasu Mates Ebisugawa</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-mates-ebisugawa-bandana-handkerchief" target="_blank" rel="noopener"><b>バンダナハンカチ Kurasu Mates Ebisugawa</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-original-pouch" target="_blank" rel="noopener"><b>巾着</b><span class="sk">2 SKU　<i>大／小</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-originalpostcard" target="_blank" rel="noopener"><b>ポストカード</b><span class="sk">6 SKU　<i>絵柄5＋セット</i></span></a></li><li><a href="https://jp.kurasu.kyoto/products/kurasu-mates-sheet-sticker" target="_blank" rel="noopener"><b>Kurasu Mates Sheet Sticker</b><span class="sk">1 SKU</span></a></li><li><a href="https://jp.kurasu.kyoto/products/silver-logo-stickers" target="_blank" rel="noopener"><b>Silver Logo Stickers</b><span class="sk">2 SKU　<i>形状2</i></span></a></li></ul></div>
+    <div class="ml"><a href="https://jp.kurasu.kyoto/collections/kurasu-original-goods" target="_blank" rel="noopener">Kurasu オリジナルグッズ 一覧 ↗</a><a href="https://note.com/kurasu_kyoto/n/nbea6d76aa200" target="_blank" rel="noopener">ものづくりの本質に触れる旅 — 有田焼・波佐見焼の産地をめぐる｜Kurasu ↗</a><a href="https://note.com/kurasu_kyoto/n/n8edf2b1cda61" target="_blank" rel="noopener">ブランド価値を伝える「ハッピーな商品企画」とは｜Kurasu ↗</a></div>
+    <div class="mg many"><img src="img/kur-100.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-01.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-02.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-03.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-04.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-05.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-09.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-12.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-14.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-15.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-16.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-18.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-19.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-20.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-21.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-23.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-27.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-29.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-31.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-34.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-35.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-36.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-37.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-38.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-39.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-41.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-42.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-45.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-47.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-48.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-50.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-52.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-54.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-70.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-71.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-72.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-74.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-56.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-57.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-58.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-60.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-61.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-62.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-63.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-66.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-67.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-68.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-78.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-79.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-95.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-96.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-97.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-99.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-81.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-82.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-83.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-84.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-86.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-87.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-89.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-90.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-91.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-92.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"><img src="img/kur-94.jpg" alt="Kurasu オリジナルプロダクト" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-ayo" aria-label="Ayo®︎1">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2023 —</span><span class="tg">グラフィックデザイン</span><span class="tg">LP制作</span><span class="tg">ブランド</span><span class="tg">マーケティング</span></p>
+    <h3>Ayo®︎1</h3>
+    <p class="mr">幼児向け栄養パウダーのリブランディング</p>
+    <p class="mlead">幼児向け『無味無臭の栄養パウダー』のリブランディングサポートと、パッケージデザイン制作。</p>
+    <div class="ms"><h4>アクション</h4><ul><li>リブランディングにおけるコンセプト設計</li><li>デザイントンマナの監修</li><li>新パッケージのリニューアル・デザイン作成</li><li>イメージ写真の撮影</li><li>オンラインショップでの販促計画のサポート</li></ul></div><div class="ms"><h4>具体的な成果物</h4><ul><li>HPのデザイン監修</li><li>開発ストーリーの漫画制作（ディレクション）</li><li>新パッケージのデザイン作成</li><li>イメージ写真の撮影</li></ul></div><p class="mn">掲載画像は現行デザインよりも前のプロトタイプです。</p><div class="ml"><a href="https://nutribase-lab.com/" target="_blank" rel="noopener">Ayo公式オンラインストア Nutribase ↗</a></div><div class="mg"><img src="img/ayo-01.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-02.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-03.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-04.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-05.png" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-06.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-07.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-08.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-09.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-10.jpg" alt="Ayo®︎1 の制作物" loading="lazy"><img src="img/ayo-11.jpg" alt="Ayo®︎1 の制作物" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-fej" aria-label="Factory Express Japan">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2021 — 2023</span><span class="tg">ブランド</span><span class="tg">マーケティング</span></p>
+    <h3>Factory Express Japan</h3>
+    <p class="mr">アパレルECの事業継承リブランディング</p>
+    <p class="mlead">アパレルReSTARTファンド社にて、アパレルシャツメーカー 山喜株式会社（東証二部 3598）より株式譲渡により事業継承されたオンラインショップ Factory Express Japan のリブランディングと全体のディレクションを担当。</p>
+    <div class="ms"><h4>アパレルリスタートファンドでの役割</h4><ul><li>経営破綻したアパレルブランドの再建。<b>仕入れから店頭まで、売れるまでの線を一本ずつ引き直した。</b></li><li>バイイング、MD、在庫管理、新規取引先の開拓、EC運用、SNS配信、撮影、グラフィックを横断</li></ul></div>
+    <div class="ms"><h4>プロセス</h4><ul><li>リブランディングのコンセプト設計〜在庫管理、新規取引先の開拓、買付、MD、オンラインショップの運用施策の計画・実行、SNSの運用まで</li><li>ロゴ制作、ウェブデザイン（オンラインショップのデザイン制作）、バナー等の画像制作</li><li>商品撮影</li></ul></div><div class="ms"><h4>デザイン・成果物</h4><ul><li>リブランディング・お取引資料</li><li>ロゴのリニューアル</li><li>オンラインショップのデザインリニューアル</li><li>Instagramの運用デザインの提案</li><li>商品画像の撮影</li></ul></div><p class="mn">リンク先は企業の方針により事業休止中のため、一部アーカイブのみ閲覧いただける状態です。</p><div class="ml"><a href="https://web.archive.org/web/20220809175923/https://factory-express-jp.co.jp/" target="_blank" rel="noopener">web.archive.org（アーカイブ） ↗</a></div><div class="mg"><img src="img/fej-01.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-02.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-03.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-04.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-05.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-06.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-07.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-08.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-09.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-10.jpg" alt="Factory Express Japan の制作物" loading="lazy"><img src="img/fej-11.jpg" alt="Factory Express Japan の制作物" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-hnt" aria-label="HAVE A NICE TRIP">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2020 — 2023</span><span class="tg">ブランド</span><span class="tg">グラフィックデザイン</span></p>
+    <h3>HAVE A NICE TRIP</h3>
+    <p class="mr">婦人アパレルの販促企画</p>
+    <p class="mlead">婦人向けアパレルブランド「ハヴァナイストリップ」をアパレルReSTARTファンドとして担当。販促業務のサポートから、一部グラフィックデザイン、YouTubeコンテンツの制作、CS・マーケ業務としてLINEの運用、日本の産地商材を取り扱う雑貨・食品のバイイング、イメージカメラマンまで。</p>
+    <div class="ms"><h4>カタログ制作</h4><ul><li>企画〜デザイン制作、入稿、納品まで</li><li>撮影のアレンジ（スタジオ予約、モデル・ケータリング・機材の手配、撮影／編集／入稿／納品スケジュールの管理）※1人またはチームで分担</li></ul></div><div class="ms"><h4>バイイングと販促企画</h4><ul><li>全国の地産商品やお土産等をセレクトし、全国のショップおよびオンラインショップにて販売</li><li>旅する気分を味わっていただくため、同ブランドのアパレルを着用して神戸市内で撮影</li><li>担当：企画〜撮影のアレンジ、紙面の構成設計〜ディレクション（撮影・デザインはグラフィックデザイナーへ依頼）</li></ul></div><div class="ms"><h4>洋菓子工場とのコラボ企画</h4><ul><li>既存商品のラインナップを、パッケージと売り出し方を変えてアパレルブランドの顧客へ提案</li><li>担当：企画〜全体のディレクション、パッケージデザインのディレクション、撮影のテーブルコーディネート、WebのLP制作、販売オペレーション管理まで</li></ul></div><div class="mg"><img src="img/hnt-01.jpg" alt="HAVE A NICE TRIP の制作物" loading="lazy"><img src="img/hnt-02.jpg" alt="HAVE A NICE TRIP の制作物" loading="lazy"><img src="img/hnt-03.jpg" alt="HAVE A NICE TRIP の制作物" loading="lazy"><img src="img/hnt-04.jpg" alt="HAVE A NICE TRIP の制作物" loading="lazy"><img src="img/hnt-05.jpg" alt="HAVE A NICE TRIP の制作物" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-ioa" aria-label="cafe ioa / hello ioa">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2020 — 2024</span><span class="tg">ロゴ</span><span class="tg">空間デザイン</span><span class="tg">グラフィックデザイン</span></p>
+    <h3>cafe ioa / cafe hello ioa</h3>
+    <p class="mr">ロゴと店舗空間のデザイン</p>
+    <p class="mlead">2020年に京都・西陣でオープンした cafe ioa と、2024年6月に京都・四条烏丸へ移転した cafe hello ioa。トータルプロデュースのうち、ロゴと店舗空間のデザインを担当した。</p>
+    <div class="ms"><h4>ロゴデザイン</h4><ul><li>手書きの「HELLO!」を軸にしたロゴをデザイン。ファサードのガラスサインに展開</li><li>桃のキャラクターを含むブランドマークを設計し、ノベルティへ展開</li></ul></div>
+    <div class="ml"><a href="https://www.instagram.com/cafe_ioa/" target="_blank" rel="noopener">Instagram @cafe_ioa ↗</a></div>
+    <div class="mg"><img src="img/ioa-01.jpg" alt="cafe hello ioa のファサードとロゴ" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-imm" aria-label="Immunorock">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2023</span><span class="tg">グラフィックデザイン</span><span class="tg">ロゴ</span></p>
+    <h3>Immunorock</h3>
+    <p class="mr">神戸大学発ベンチャーのロゴデザイン</p>
+    <p class="mlead">神戸大学発のベンチャー企業として2021年に設立。ビフィズス菌の特性を利用した新規経口ワクチンプラットフォーム技術を有するイムノロック社から、技術を象徴するロゴの制作依頼。</p>
+    <div class="ms"><h4>案件の内容</h4><ul><li>資金調達等の動きに向けて、企業としてのブランド力を高めたいというニーズに応えるロゴを提案</li></ul></div>
+    <div class="ms"><h4>プロセス</h4><ul><li>ヒアリングからデザインコンセプトの設計・提案、最終決定〜納品までを担当</li><li>提案は3案。技術のどこを象徴させるかを変えて、3方向から出した</li></ul></div>
+    <div class="ms"><h4>提案した3案</h4><ul>
+      <li><b>#1 暗闇を照らす月明かりのように</b>　治療する術がなく絶望の中にいる人を照らす光として。三日月と、抗原がデリバリーされる様子を重ねた</li>
+      <li><b>#2 タイムリミットのある癌の治療に</b>　時間との戦いである癌治療のスピードに着目し、免疫が癌と戦う様子を時計の針に見立てた</li>
+      <li><b>#3 “届ける”</b>　最重要である「抗原タンパクの腸管免疫系へのデリバリー」を最もシンプルな形に。両手で大切なものを贈り届ける姿と、地球の海を表す中心の球体。<b>最終的にこの案を採用</b></li>
+    </ul></div>
+    <div class="ml"><a href="https://immunorock.com/" target="_blank" rel="noopener">immunorock.com ↗</a></div>
+    <div class="mg"><img src="img/imm-01.png" alt="採用されたロゴの実装" loading="lazy"><img src="img/immp-2.jpg" alt="提案資料 IDEA #1" loading="lazy"><img src="img/immp-3.jpg" alt="提案資料 IDEA #2" loading="lazy"><img src="img/immp-4.jpg" alt="提案資料 IDEA #3" loading="lazy"></div>
+  </div>
+</dialog>
+<dialog class="mdl" id="m-tcs" aria-label="to clinic shibuya">
+  <button class="mx" type="button" aria-label="閉じる">✕</button>
+  <div class="mb">
+    <p class="mk"><span class="yr">2024</span><span class="tg">ブランド</span><span class="tg">マーケティング</span><span class="tg">PM</span></p>
+    <h3>to clinic shibuya</h3>
+    <p class="mr">クリニックと制作パートナー間における、ブランディングPMOおよび合意形成サポート</p>
+    <p class="mlead">渋谷サクラステージに新規開院する「to clinic shibuya」のブランディングおよび合意形成を牽引した。医療系スタートアップ<b>株式会社bonbon</b>からの業務委託として参画し、つくる側と使う側のあいだに立って、新規事業の立案とPM伴走を担った。</p>
+    <div class="ms"><h4>具体的な業務内容</h4><ul><li>ロゴや各種制作物の業務委託における進行管理（PMO）をはじめ、SNS・LINEの運用体制構築、マーケティング施策の実行推進を一貫して担当。</li></ul></div><p class="mn">ブランディング、グラフィック、マーケターはそれぞれ外注・業務委託の担当者あり。</p><div class="ml"><a href="https://toclinic.jp/" target="_blank" rel="noopener">toclinic.jp ↗</a><a href="https://www.tokyu-fudosan-hd.co.jp/news/companies/pdf/69b74886fc6221fe05fbd306bb8197828e67c46e.pdf" target="_blank" rel="noopener">渋谷サクラステージ（東急不動産HD ニュースリリース） ↗</a></div>
+    <div class="mg"><img src="img/tcs-01.jpg" alt="to clinic shibuya のロゴ" loading="lazy"><img src="img/tcs-02.jpg" alt="クリニックの内装" loading="lazy"><img src="img/tcs-03.jpg" alt="施術シーンのビジュアル" loading="lazy"></div>
+  </div>
+</dialog>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Saki Fujiwara — MIMICRY</span><span>Updated 2026.09</span></div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mobile = window.matchMedia('(max-width: 900px)');
+
+  /* ── ブロブ（擬態するマスコット） ── */
+  var N=9, TAU=Math.PI*2;
+  var SHAPES=[
+    [.11,-.07,.14,-.05,.09,-.12,.06,.13,-.09],
+    [.16,-.10,.13,-.14,.10,-.08,.15,-.12,.08],
+    [-.12,.17,-.09,.14,-.16,.11,-.07,.15,-.10],
+    [.20,.06,-.18,.09,.17,-.14,.05,.19,-.08],
+    [-.07,-.16,.19,.05,-.13,.18,-.11,.06,.16]
+  ];
+  var cur=SHAPES[0].slice(), tgt=SHAPES[0].slice();
+  function morphTo(i){ tgt=SHAPES[((i%SHAPES.length)+SHAPES.length)%SHAPES.length].slice(); }
+  function path(t){
+    var pts=[],cx=60,cy=62,base=40;
+    for(var i=0;i<N;i++){
+      var a=TAU*i/N - Math.PI/2;
+      var wob=Math.sin(t/900 + i*1.7)*0.035 + Math.cos(t/1330 + i*2.3)*0.025;
+      var r=base*(1+cur[i]+wob);
+      pts.push([cx+Math.cos(a)*r, cy+Math.sin(a)*r]);
+    }
+    var d='M'+pts[0][0].toFixed(2)+' '+pts[0][1].toFixed(2);
+    for(var j=0;j<N;j++){
+      var p0=pts[(j-1+N)%N],p1=pts[j],p2=pts[(j+1)%N],p3=pts[(j+2)%N];
+      d+='C'+(p1[0]+(p2[0]-p0[0])/6).toFixed(2)+' '+(p1[1]+(p2[1]-p0[1])/6).toFixed(2)+','
+        +(p2[0]-(p3[0]-p1[0])/6).toFixed(2)+' '+(p2[1]-(p3[1]-p1[1])/6).toFixed(2)+','
+        +p2[0].toFixed(2)+' '+p2[1].toFixed(2);
+    }
+    return d+'Z';
+  }
+  var bodies=[].slice.call(document.querySelectorAll('.blob path.body'));
+  function draw(t){
+    for(var i=0;i<N;i++) cur[i]+=(tgt[i]-cur[i])*0.06;
+    var d=path(reduce?0:t);
+    for(var k=0;k<bodies.length;k++) bodies[k].setAttribute('d',d);
+  }
+  draw(0);
+  if(!reduce){ (function loop(t){ draw(t); requestAnimationFrame(loop); })(0); }
+
+  /* ── ナビの現在地 ── */
+  var links={};
+  document.querySelectorAll('#tabs a').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  function markNav(id){ for(var k in links) links[k].classList.toggle('on', k===id); }
+  var SECS=[].slice.call(document.querySelectorAll('[data-sec]'));
+  var current=null;
+  function setSec(name, idx){
+    if(name===current) return;
+    current=name;
+    markNav(name);
+    morphTo(idx+1);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      var best=null;
+      es.forEach(function(e){ if(e.isIntersecting && (!best || e.intersectionRatio>best.intersectionRatio)) best=e; });
+      if(best){ var i=SECS.indexOf(best.target); setSec(best.target.dataset.sec, i); }
+    }, {rootMargin:'-30% 0px -55% 0px', threshold:[0,.2,.5]});
+    SECS.forEach(function(n){ io.observe(n); });
+    window.addEventListener('scroll', function(){ if(window.scrollY<200){ current=null; markNav(null); morphTo(0); } }, {passive:true});
+  }
+
+  /* ── ページ内リンク ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var h=a.getAttribute('href');
+      closeMenu();
+      if(a.classList.contains('stat')){
+        var el=document.getElementById(h.slice(1));
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:reduce?'auto':'smooth', block:'center', inline:'center'});
+        if(el.classList.contains('wk')){ el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+        if(el.id==='reg') document.querySelectorAll('.rg').forEach(function(d){ d.open=true; });
+      }
+    });
+  });
+
+  /* ── スマホのメニュー ── */
+  var mm=document.getElementById('mm'), mb=document.getElementById('menuBtn');
+  function closeMenu(){ if(mm && !mm.hidden){ mm.hidden=true; mb.setAttribute('aria-expanded','false'); document.documentElement.style.overflow=''; } }
+  if(mb){
+    mb.addEventListener('click', function(){ mm.hidden=false; mb.setAttribute('aria-expanded','true'); document.documentElement.style.overflow='hidden'; document.getElementById('mmClose').focus(); });
+    document.getElementById('mmClose').addEventListener('click', function(){ closeMenu(); mb.focus(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+  }
+
+  
+  /* ── 経歴スライダーの矢印 ── */
+  (function(){
+    var sc=document.querySelector('.hcs'); if(!sc) return;
+    var bs=document.querySelectorAll('.hcb');
+    function step(){ var c=sc.querySelector('.hc'); return c ? c.getBoundingClientRect().width+parseFloat(getComputedStyle(sc).columnGap||0) : 300; }
+    function upd(){ var max=sc.scrollWidth-sc.clientWidth-2;
+      bs.forEach(function(b){ b.disabled = b.dataset.d<0 ? sc.scrollLeft<=2 : sc.scrollLeft>=max; }); }
+    bs.forEach(function(b){ b.addEventListener('click',function(){ sc.scrollBy({left:step()*b.dataset.d,behavior:reduce?'auto':'smooth'}); }); });
+    sc.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd); upd();
+  })();
+
+  /* ── 詳細モーダル ── */
+  document.querySelectorAll('[data-m]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var d=document.getElementById('m-'+b.dataset.m);
+      document.querySelectorAll('dialog.mdl[open]').forEach(function(o){ if(o!==d) o.close(); });
+      if(d && d.showModal && !d.open){ d.showModal(); var s=d.querySelector('.mb'); if(s) s.scrollTop=0; }
+    });
+  });
+  document.querySelectorAll('dialog.mdl').forEach(function(d){
+    var x=d.querySelector('.mx');
+    if(x) x.addEventListener('click',function(){ d.close(); });
+    d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
+  });
+
+  /* ── ことりの動画：音のオン・オフ ── */
+  (function(){
+    var v=document.getElementById('kotVideo'), btn=document.getElementById('kotSound');
+    if(!v || !btn) return;
+    var icoMute='<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M16 9l5 6M21 9l-5 6"/>';
+    var icoOn='<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>';
+    function sync(){
+      btn.setAttribute('aria-pressed', (!v.muted).toString());
+      btn.querySelector('svg').innerHTML = v.muted ? icoMute : icoOn;
+      btn.querySelector('span').textContent = v.muted ? '音を出して見る' : 'ミュートにする';
+    }
+    btn.addEventListener('click', function(){
+      v.muted=!v.muted;
+      if(!v.muted){ v.currentTime=0; }
+      v.play().catch(function(){});
+    });
+    v.addEventListener('volumechange', sync);
+    if(reduce){ v.removeAttribute('autoplay'); v.pause(); }
+    /* 画面外では止める */
+    if('IntersectionObserver' in window && !reduce){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) v.play().catch(function(){}); else v.pause(); }); }, {threshold:.3}).observe(v);
+    }
+    sync();
+  })();
+
+  /* ── メールアドレスのコピー ── */
+  (function(){
+    var b=document.getElementById('copyMail'), t=document.getElementById('mailAddr');
+    if(!b || !t) return;
+    b.addEventListener('click', function(){
+      function done(){ b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY'; },1600); }
+      function fallback(){ var r=document.createRange(); r.selectNodeContents(t); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='選択しました'; setTimeout(function(){ b.textContent='COPY'; },1600); }
+      try{ navigator.clipboard.writeText(t.textContent).then(done, fallback); }catch(e){ fallback(); }
+    });
+  })();
+})();
+
+</script>
